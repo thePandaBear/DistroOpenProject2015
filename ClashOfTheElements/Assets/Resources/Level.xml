@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Elements>
+  <PathPieces>
+    <Path X="0" Y="0" />
+  </PathPieces>
+  <Waypoints>
+    <Waypoint X="0" Y="0" />
+	<Waypoint X="10" Y="0" />
+	<Waypoint X="10" Y="2" />
+	<Waypoint X="4" Y="2" />
+	<Waypoint X="4" Y="4" />
+	<Waypoint X="7" Y="4" />
+	<Waypoint X="7" Y="7" />
+  </Waypoints>
+  <Tower X="7" Y="7" />
+  <Rounds>
+    <Round NoOfEnemies="2" />
+    <Round NoOfEnemies="2" />
+    <Round NoOfEnemies="4" />
+    <Round NoOfEnemies="4" />
+    <Round NoOfEnemies="6" />
+    <Round NoOfEnemies="6" />
+    <Round NoOfEnemies="8" />
+    <Round NoOfEnemies="8" />
+    <Round NoOfEnemies="10" />
+    <Round NoOfEnemies="12" />
+  </Rounds>
+  <OtherStuff InitialMoney ="200"/>
+</Elements>
