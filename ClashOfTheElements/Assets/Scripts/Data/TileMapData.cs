@@ -14,14 +14,15 @@ public class TileMapData{
     protected class DTile {
         protected int pos_x;
         protected int pos_y;  
-        protected  bool walkable;
-        protected  bool has_tower_build;
+        public  bool Iswalkable;
+        public  bool has_tower_on_it;
         protected  int tileGraphicId;
 
         public int getGraphicID(){
             return tileGraphicId;
         }
-       
+
+    
     }
 
     // Data of walkable tile 
@@ -30,8 +31,8 @@ public class TileMapData{
         public DWalkableTile(int x_pos, int y_pos) {
             this.pos_x = x_pos;
             this.pos_y = y_pos;
-            walkable = true;
-            has_tower_build = false;
+            Iswalkable = true;
+            has_tower_on_it = false;
             tileGraphicId = 2;
         }
     }
@@ -43,8 +44,8 @@ public class TileMapData{
         public DBuildTile(int x_pos, int y_pos) {
             this.pos_x = x_pos;
             this.pos_y = y_pos;
-            walkable = false;
-            has_tower_build = false;
+            Iswalkable = false;
+            has_tower_on_it = false;
             tileGraphicId = 1;
         }
     }
@@ -71,7 +72,7 @@ public class TileMapData{
      
         for (int x = 0; x < size_x; x++) {
             for (int y = 0; y < size_y; y++) {
-                map_tiles[x,y] = new DWalkableTile(x, y);
+                map_tiles[x,y] = new DBuildTile(x, y);
             }
         }                    
     }
@@ -82,5 +83,17 @@ public class TileMapData{
         return map_tiles[x, y].getGraphicID();
     }
 
+    public bool checkForTower(int x, int y) {
+        return map_tiles[x, y].has_tower_on_it;
+    }
+
+    public bool checkIsPath(int x, int y)
+    {
+        return map_tiles[x, y].Iswalkable;
+    }
+
+    public void setTowerBool(int x, int y, bool theBool) {
+        map_tiles[x, y].has_tower_on_it = theBool;
+    }
     // add more tile logic and stuff 
 }
