@@ -2,13 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 public class LobbyScreen : MonoBehaviour {
-	
-	// Use this for initialization
+	string gamename;	
+
 	void Start () {
-		Debug.Log ("wee lobby");
+		Debug.Log ("wee lobby entered");
+		PersistentData ps = GameObject.Find("notDestroyed").GetComponent("PersistentData") as PersistentData;
+		gamename = ps.getGamename();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}

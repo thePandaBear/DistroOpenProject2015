@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour {
         CheckAndStartNewRound();
 
         finalRoundFinished = false;
+		
     }
 	
 	// Update is called once per frame
@@ -166,4 +167,8 @@ public class GameManager : MonoBehaviour {
             Destroy(castle);
         }
     }
+
+	public List<Vector2> getWaypoints() {
+		return levelDataFromXML.Waypoints;
+	}
 }

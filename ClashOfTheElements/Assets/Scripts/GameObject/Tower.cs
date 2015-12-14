@@ -9,7 +9,6 @@ public class Tower : MonoBehaviour {
 	public float fireRate = 2f;
 	private float lastFire = 0f;
 	GameObject target;
-	public float initialArrowForce = 500f;
     private TowerState State;
     public float range;
 
@@ -72,9 +71,11 @@ public class Tower : MonoBehaviour {
                 GameObject go = ObjectPoolerManager.Instance.ArrowPooler.GetPooledObject();
                 go.transform.position = transform.position;
                 go.transform.rotation = transform.rotation;
+
+				//Aim and shoot
+				go.GetComponent<Arrow>().setTarget(target.transform);
                 go.SetActive(true);
-                //SHOOT IT!
-                go.GetComponent<Rigidbody2D>().AddForce(direction * initialArrowForce);
+
             } else//find another enemy
               {
                 State = TowerState.Searching;

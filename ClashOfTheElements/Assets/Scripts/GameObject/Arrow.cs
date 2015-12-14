@@ -3,16 +3,29 @@ using System.Collections;
 
 public class Arrow : MonoBehaviour {
 
-    public int damageSet;
-    public static int damage;
-    
+    //Properties
+	public static int damage = 1;
+	public static float speed = 10;
 
-    // Use this for initialization
-    void Start() {
+	//The targeted monster
+	private Transform target;
+    
+	    void Start() {
         //disable it after 5 seconds, whatever happens
         Invoke("Disable", 5f);
-        damage = damageSet;
     }
+
+	void FixedUpdate() {
+		// Is the target still there?
+		if (target) {
+			// Fly towards the target 
+			Vector2 dir = target.position - transform.position;
+			GetComponent<Rigidbody2D>().velocity = dir.normalized * speed;
+		} else {
+			// Otherwise destroy self
+			Disable();
+		}
+	}
 
     public void Disable() {
         //if we are called from another gameobject,
@@ -22,5 +35,7 @@ public class Arrow : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
 
-
+	public void setTarget(Transform t) {
+		target = t;
+	}
 }

@@ -18,9 +18,12 @@ public class TileMapMouse : MonoBehaviour {
 
     //offset to hit center of tile
     private Vector2 tileCenterOffset = new Vector2(0.5f, 0.5f);
-	
+
+    private TileMapData mapData;
+
 	void Start() {
 		_tileMap = GetComponent<TileMapVisual>();
+        mapData = _tileMap.mapData;
 	}
 
 	// Update is called once per frame
@@ -44,8 +47,9 @@ public class TileMapMouse : MonoBehaviour {
 			// Hide selection cube?
 		}
 		
-		if(Input.GetMouseButtonDown(0)) {
+		if(Input.GetMouseButtonDown(0) && !mapData.checkForTower((int)currentTileCoord.x, (int)currentTileCoord.y) && !mapData.checkIsPath((int)currentTileCoord.x, (int)currentTileCoord.y)){
 			Debug.Log ("Click!");
+            mapData.setTowerBool((int)currentTileCoord.x, (int)currentTileCoord.y, true);
             Tower t = Instantiate(towerPrefab);
             t.transform.position = currentTileCoord + tileCenterOffset;
 		}

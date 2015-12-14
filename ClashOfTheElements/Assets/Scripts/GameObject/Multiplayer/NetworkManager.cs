@@ -16,9 +16,18 @@ public class NetworkManager : MonoBehaviour {
 	void Update () {
 	}
 
-	public void StartHost(string username, string gamename){
+	public void StartHost(string gamename){
 
+		int listenport = 25000;
+		NetworkConnectionError error = Network.InitializeServer (4, listenport, true);
+
+		//loop while no connection could be established 
+		while(error != NetworkConnectionError.NoError){
+			listenport =  UnityEngine.Random.Range (25000, 26000);
+			error= Network.InitializeServer (4, listenport, true);
+		}
+		MasterServer.RegisterHost ("gameType", gamename);
+		Debug.Log ("server:  " + gamename); 
 	}
-
 
 }
