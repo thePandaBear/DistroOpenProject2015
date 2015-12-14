@@ -32,7 +32,7 @@ public class LoginScreen : MonoBehaviour {
 		customButton.fontSize = 40;
 
 		// create gui box
-		GUI.Box (new Rect (0, 0, width, height));
+		GUI.Box (new Rect (0, 0, width, height), "");
 
 
 		if(GUI.Button(new Rect(buttonX,buttonY,buttonWidth,buttonHeight), "Start Singleplayer", customButton)){
