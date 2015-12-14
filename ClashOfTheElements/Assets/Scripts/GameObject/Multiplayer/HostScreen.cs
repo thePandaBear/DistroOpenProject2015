@@ -35,8 +35,8 @@ public class HostScreen : MonoBehaviour {
 		if(GUI.Button(new Rect(525,500,150,50), "start LAN Server")){
 			//check if username and gamename are set
 				if((username != null) & (gamename != null)) {
-					//TODO save this user as server with username
-					//change to Lobby
+					//start a Host Server
+					NetworkManager.Instance.StartHost(username,gamename);
 					Application.LoadLevel("Lobby"); 
 				}else{
 				//TODO display some message
