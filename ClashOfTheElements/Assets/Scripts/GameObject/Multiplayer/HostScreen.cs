@@ -55,18 +55,31 @@ public class HostScreen : MonoBehaviour {
 
 		GUI.Label (new Rect (buttonX, buttonY/2, buttonWidth, buttonHeight), "Host Game", labelFont);
 
-		if(GUI.Button(new Rect(buttonX,buttonY,buttonWidth,buttonHeight), "start LAN Server", buttonFont)){
+		// get username
+		string username = PlayerPrefs.GetString ("username");
+
+		// if not set, set to Spongebob
+		if (username.Equals ("")) {
+			username = "Spongebob";
+			PlayerPrefs.SetString("username", username);
+		}
+
+		GUI.Label (new Rect (buttonX, buttonY, buttonWidth, buttonHeight), "Username: " + username, labelFont);
+
+		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "start LAN Server", buttonFont)){
 			//check if username and gamename are set
-				if((username != null) & (gamename != null)) {
+				if((username != null)) {
+					//!!!!gamename = username's game!!!
 					//TODO save this user as server with username
 					//change to Lobby
 					Application.LoadLevel("Lobby"); 
 				}else{
-				//TODO display some message
-				Debug.Log("input missing: username or gamename");
+					//TODO display some message
+					// !!probably not needed anymore.
+					Debug.Log("input missing: username or gamename");
 				}
 		}
-		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Back", buttonFont)){
+		if(GUI.Button(new Rect(buttonX,buttonY*3,buttonWidth,buttonHeight), "Back", buttonFont)){
 			Application.LoadLevel("LoginMenu");
 		}
 	}

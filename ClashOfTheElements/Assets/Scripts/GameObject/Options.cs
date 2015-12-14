@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class Options : MonoBehaviour {
-	
+		
+	string username;
 	// Use this for initialization
 	void Start () {
 		
@@ -10,7 +11,11 @@ public class Options : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		// save username.
+		if(username.Equals("")) {
+			username = "Spongebob";
+		}
+		PlayerPrefs.SetString("username", username);
 	}
 	
 	void OnGUI(){
@@ -73,7 +78,18 @@ public class Options : MonoBehaviour {
 
 		}
 
-		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Back", buttonFont)){
+		// get username
+		username = PlayerPrefs.GetString ("username");
+		
+		// if not set, set to Spongebob
+		if (username.Equals ("")) {
+			username = "Spongebob";
+			PlayerPrefs.SetString("username", username);
+		}
+
+		username = GUI.TextField (new Rect (buttonX, buttonY*2, buttonWidth, buttonHeight), username, labelFont);
+
+		if(GUI.Button(new Rect(buttonX,buttonY*3,buttonWidth,buttonHeight), "Back", buttonFont)){
 			Application.LoadLevel("LoginMenu");
 		}
 	}
