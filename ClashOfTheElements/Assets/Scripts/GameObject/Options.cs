@@ -28,25 +28,53 @@ public class Options : MonoBehaviour {
 		int buttonY = height / 6;
 		
 		// create custom style for bigger font
-		GUIStyle customButton = new GUIStyle("button");
-		customButton.fontSize = 40;
+		GUIStyle buttonFont = new GUIStyle("button");
+		buttonFont.fontSize = 40;
+
+		// create custom style for label font
+		GUIStyle labelFont = new GUIStyle("label");
+		labelFont.fontSize = 60;
 		
 		// create gui box
 		GUI.Box (new Rect (0, 0, width, height), "");
 
+		GUI.Label (new Rect (buttonX, buttonY/2, buttonWidth, buttonHeight), "Options", labelFont);
 
-		if(GUI.Button(new Rect(buttonX,buttonY,buttonWidth,buttonHeight), "Difficulty: Easy", customButton)){
+		// get current difficulty
+		int difficulty = PlayerPrefs.GetInt ("difficulty");
+
+		// check if difficulty is set or not.
+		if (difficulty == 0) {
+			// not set yet, set to 1 (easy)
+			PlayerPrefs.SetInt("difficulty", 1);
+			difficulty = 1;
+		}
+
+		// text for options menu
+		string difficultyText = "";
+
+		if (difficulty == 1) {
+			difficultyText = "Difficulty: Easy";
+		} else if (difficulty == 2) {
+			difficultyText = "Difficulty: Medium";
+		} else if (difficulty == 3) {
+			difficultyText = "Difficulty: Hard";
+		}
+
+		if(GUI.Button(new Rect(buttonX,buttonY,buttonWidth,buttonHeight), difficultyText, buttonFont)){
+
+			// increase
+			difficulty++;
+			if(difficulty > 3) {
+				difficulty = 1;
+			}
+			// save new difficulty
+			PlayerPrefs.SetInt("difficulty", difficulty);
 
 		}
-		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "SO 2", customButton)){
 
-		}
-		if(GUI.Button(new Rect(buttonX,buttonY*3,buttonWidth,buttonHeight), "SO 3", customButton)){
-
-		}
-
-		if(GUI.Button(new Rect(buttonX,buttonY*4,buttonWidth,buttonHeight), "Back", customButton)){
-			Application.LoadLevel("LoginScreen");
+		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Back", buttonFont)){
+			Application.LoadLevel("LoginMenu");
 		}
 	}
 }

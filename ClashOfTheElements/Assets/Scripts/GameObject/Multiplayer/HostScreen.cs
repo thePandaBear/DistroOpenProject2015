@@ -30,9 +30,32 @@ public class HostScreen : MonoBehaviour {
 	}
 	
 	void OnGUI(){
-		GUI.Box (new Rect (0, 0, 1125, 900), "Host a multiplayer Server");
 
-		if(GUI.Button(new Rect(525,500,150,50), "start LAN Server")){
+		// previously w=1200, h=900
+		int width = Screen.width;
+		int height = Screen.height;
+		
+		// size of buttons
+		int buttonWidth = width / 3;
+		int buttonHeight = height / 10;
+		
+		// get standard button height and width
+		int buttonX = width / 2 - buttonWidth / 2;
+		int buttonY = height / 6;
+		
+		// create custom style for bigger font
+		GUIStyle buttonFont = new GUIStyle("button");
+		buttonFont.fontSize = 40;
+
+		// create custom style for label font
+		GUIStyle labelFont = new GUIStyle("label");
+		labelFont.fontSize = 60;
+
+		GUI.Box (new Rect (0, 0, width, height), "");
+
+		GUI.Label (new Rect (buttonX, buttonY/2, buttonWidth, buttonHeight), "Host Game", labelFont);
+
+		if(GUI.Button(new Rect(buttonX,buttonY,buttonWidth,buttonHeight), "start LAN Server", buttonFont)){
 			//check if username and gamename are set
 				if((username != null) & (gamename != null)) {
 					//TODO save this user as server with username
@@ -42,6 +65,9 @@ public class HostScreen : MonoBehaviour {
 				//TODO display some message
 				Debug.Log("input missing: username or gamename");
 				}
+		}
+		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Back", buttonFont)){
+			Application.LoadLevel("LoginMenu");
 		}
 	}
 }

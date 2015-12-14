@@ -20,7 +20,7 @@ public class LoginScreen : MonoBehaviour {
 		int height = Screen.height;
 
 		// size of buttons
-		int buttonWidth = width / 5;
+		int buttonWidth = width / 3;
 		int buttonHeight = height / 10;
 
 		// get standard button height and width
@@ -28,23 +28,28 @@ public class LoginScreen : MonoBehaviour {
 		int buttonY = height / 6;
 
 		// create custom style for bigger font
-		GUIStyle customButton = new GUIStyle("button");
-		customButton.fontSize = 40;
+		GUIStyle buttonFont = new GUIStyle("button");
+		buttonFont.fontSize = 40;
+
+		// custom style for label font
+		GUIStyle labelFont = new GUIStyle ("label");
+		labelFont.fontSize = 60;
 
 		// create gui box
 		GUI.Box (new Rect (0, 0, width, height), "");
 
+		GUI.Label (new Rect (buttonX, buttonY/2, buttonWidth, buttonHeight), "Menu", labelFont);
 
-		if(GUI.Button(new Rect(buttonX,buttonY,buttonWidth,buttonHeight), "Start Singleplayer", customButton)){
+		if(GUI.Button(new Rect(buttonX,buttonY,buttonWidth,buttonHeight), "Start Singleplayer", buttonFont)){
 			Application.LoadLevel("testScene");
 		}
-		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Host Multiplayer", customButton)){
+		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Host Multiplayer", buttonFont)){
 			Application.LoadLevel("HostMultiplayer");
 		}
-		if(GUI.Button(new Rect(buttonX,buttonY*3,buttonWidth,buttonHeight), "Join Multiplayer", customButton)){
+		if(GUI.Button(new Rect(buttonX,buttonY*3,buttonWidth,buttonHeight), "Join Multiplayer", buttonFont)){
 			Application.LoadLevel("JoinMultiplayer");
 		}
-		if(GUI.Button(new Rect(buttonX,buttonY*4,buttonWidth,buttonHeight), "Options", customButton)){
+		if(GUI.Button(new Rect(buttonX,buttonY*4,buttonWidth,buttonHeight), "Options", buttonFont)){
 			Application.LoadLevel("Options");
 		}
 	}
