@@ -39,13 +39,13 @@ public class LoginScreen : MonoBehaviour {
 			Application.LoadLevel("testScene");
 		}
 		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Host Multiplayer", customButton)){
-			Application.LoadLevel("HostMultiplayer"); 
+			Application.LoadLevel("HostMultiplayer");
 		}
 		if(GUI.Button(new Rect(buttonX,buttonY*3,buttonWidth,buttonHeight), "Join Multiplayer", customButton)){
-			Application.LoadLevel("JoinMultiplayer"); 
+			Application.LoadLevel("JoinMultiplayer");
 		}
 		if(GUI.Button(new Rect(buttonX,buttonY*4,buttonWidth,buttonHeight), "Options", customButton)){
-			Application.LoadLevel("Options"); 
+			Application.LoadLevel("Options");
 		}
 	}
 }
