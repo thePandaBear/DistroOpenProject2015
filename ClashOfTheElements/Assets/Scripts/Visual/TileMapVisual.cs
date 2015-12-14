@@ -18,9 +18,13 @@ public class TileMapVisual : MonoBehaviour {
     public int tileResolution;
 
     // Tile Data to acces Data of map
-    public TileMapData mapData;
+    TileMapData mapData;
 
-
+    // returns mapdata 
+    public TileMapData getMapData() {
+        return mapData;
+    } 
+    
     // Use this for initialization
     void Start () {
 		BuildMesh();
@@ -32,6 +36,7 @@ public class TileMapVisual : MonoBehaviour {
         int numTilesPerRow = terrainTiles.width / tileResolution;
         int numRows = terrainTiles.height / tileResolution;
 
+        
         Color[][] tiles = new Color[numTilesPerRow * numRows][];
 
         for (int y = 0; y < numRows; y++){
