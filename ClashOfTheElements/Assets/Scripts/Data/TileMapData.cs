@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TileMapData{
+public class TileMapData: MonoBehaviour {
     // Caution Sprite Types is hard coded
     /*  0 = Water 
         1 = Buildplace
@@ -51,30 +51,83 @@ public class TileMapData{
     }
 
 
+
+    // gameManager
+    GameObject go;
+    GameManager gameManagerScript;
+
     int size_x;
     int size_y;
-
+   
     // for better performance use 1D array
     DTile [,] map_tiles;
 
     //List of all Tiles
 
-    public TileMapData(int x_size, int y_size) {
-    
+    public TileMapData(int x_size, int y_size)
+    {
+
         this.size_x = x_size;
         this.size_y = y_size;
 
+
         map_tiles = new DTile[size_x, size_y];
+
+        // gameManager Stuff
+        go = GameObject.Find("GameManager");
+        gameManagerScript = go.GetComponent<GameManager>();
+        
+        Debug.Log("ITs not null");
+       
 
         // Construct Data map with Tiles from XML 
 
         // Example without XML
-     
-        for (int x = 0; x < size_x; x++) {
-            for (int y = 0; y < size_y; y++) {
-                map_tiles[x,y] = new DBuildTile(x, y);
+        for (int x = 0; x < size_x; x++)
+        {
+            for (int y = 0; y < size_y; y++)
+            {
+                map_tiles[x, y] = new DBuildTile(x, y);
             }
-        }                    
+        }
+
+        //waypoints in XML files as Vector2d List
+        if (gameManagerScript.getWaypoints() != null)
+        {
+            List<Vector2> wayPointsList = gameManagerScript.getWaypoints();
+            // add path to tile 
+            Debug.Log("Starting Pathing");
+            int mini;
+            int maxi;
+            for (int i = 0; i < wayPointsList.Count - 1; i++)
+            {
+                Vector2 current = wayPointsList[i];
+                Vector2 next = wayPointsList[i + 1];
+                // horizontal
+                if (current.x == next.x)
+                {
+                    // loop from start to next mark path tile
+                    int x = (int)current.x;
+                    mini = Mathf.Min((int)current.y, (int)next.y);
+                    maxi = Mathf.Max((int)current.y, (int)next.y);
+                    for (int y = mini; y < maxi + 1; y++)
+                    {
+                        map_tiles[x, y] = new DWalkableTile(x, y);
+                    }
+                }
+                else
+                { // we are moving horizontal
+                    int y = (int)current.y;
+                    mini = Mathf.Min((int)current.x, (int)next.x);
+                    maxi = Mathf.Max((int)current.x, (int)next.x);
+                    // loop from start to next mark
+                    for (int x = mini; x < maxi + 1; x++)
+                    {
+                        map_tiles[x, y] = new DWalkableTile(x, y);
+                    }
+                }
+            }
+        }
     }
 
     // return graphic ID for texture 

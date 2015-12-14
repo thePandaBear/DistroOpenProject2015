@@ -169,6 +169,9 @@ public class GameManager : MonoBehaviour {
     }
 
 	public List<Vector2> getWaypoints() {
-		return levelDataFromXML.Waypoints;
-	}
+        if(levelDataFromXML != null)
+		    return levelDataFromXML.Waypoints;
+        else
+            return null;
+    }       
 }

@@ -23,7 +23,7 @@ public class TileMapMouse : MonoBehaviour {
 
 	void Start() {
 		_tileMap = GetComponent<TileMapVisual>();
-        mapData = _tileMap.mapData;
+        mapData = _tileMap.getMapData();
 	}
 
 	// Update is called once per frame
@@ -53,5 +53,6 @@ public class TileMapMouse : MonoBehaviour {
             Tower t = Instantiate(towerPrefab);
             t.transform.position = currentTileCoord + tileCenterOffset;
 		}
-	}
+
+    }
 }
