@@ -39,7 +39,7 @@ public class LoginScreen : MonoBehaviour {
 		GUI.Label (new Rect (buttonX, buttonY/2, buttonWidth, buttonHeight), "Menu", labelFont);
 
 		if(GUI.Button(new Rect(buttonX,buttonY,buttonWidth,buttonHeight), "Start Singleplayer", buttonFont)){
-			Application.LoadLevel("testScene");
+			Application.LoadLevel("InGame");
 		}
 		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Host Multiplayer", buttonFont)){
 			Application.LoadLevel("HostMultiplayer");
