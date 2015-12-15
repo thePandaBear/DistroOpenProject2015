@@ -198,7 +198,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
---- !u!43 &1312092659
+--- !u!43 &1090794079
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -440,9 +440,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -454,7 +452,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1398146636}
-  m_Mesh: {fileID: 1312092659}
+  m_Mesh: {fileID: 1090794079}
 --- !u!64 &1398146640
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -466,7 +464,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 0
-  m_Mesh: {fileID: 1312092659}
+  m_Mesh: {fileID: 1090794079}
 --- !u!4 &1398146641
 Transform:
   m_ObjectHideFlags: 0
@@ -566,9 +564,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -586,7 +582,7 @@ GameObject:
   - 4: {fileID: 1920234687}
   - 114: {fileID: 1920234686}
   - 114: {fileID: 1920234688}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,13 +600,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6393b2de7c72b1240899dcabd8b75b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsters: []
+  monsterList: []
   monsterPrefab: {fileID: 121922, guid: a704f794b2ac4ee4f80de4e9ab78709d, type: 2}
   castlePrefab: {fileID: 152144, guid: 364e968739be07b41b56ce5bf1dfa0b2, type: 2}
   waypoints: []
-  lives: 10
-  currentGameState: 0
-  finalRoundFinished: 0
+  nOfLives: 10
+  gameState: 0
+  gameFinished: 0
 --- !u!4 &1920234687
 Transform:
   m_ObjectHideFlags: 0

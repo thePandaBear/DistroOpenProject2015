@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour {
 	/** parameters for the gameplay **/
 	// amount of money that is available
 	public int moneyAvailable { get; private set; }
-	
-	// number of lives available to the player
+
+    // number of lives available to the player
 	public int nOfLives = 10;
 	
 	// the current state of the game
@@ -80,8 +80,8 @@ public class GameManager : MonoBehaviour {
 	
 	// update the game.
 	void Update () {
-		
-		switch (gameState) {
+
+        switch (gameState) {
 			// start of the game.
 		case GameState.Start:
 			if (Input.GetMouseButtonUp(0)) {
@@ -101,28 +101,20 @@ public class GameManager : MonoBehaviour {
 			}
 			break;
 		case GameState.Won:
-			if (Input.GetMouseButtonUp(0)) {//restart
+			if (Input.GetMouseButtonUp(0)) {
 				Application.LoadLevel(Application.loadedLevel);
 			}
 			break;
 		case GameState.Lost:
-			if (Input.GetMouseButtonUp(0)) {//restart
-				Application.LoadLevel(Application.loadedLevel);
-			}
-			break;
+                destroyAllMonsters();
+            // do nothing
+                break;
 		default:
 			break;
 		}
 	}
 	
 	private void initLevelFromXml() {
-		
-		/*foreach (var position in levelDataFromXML.Paths) {
-            GameObject go = Instantiate(PathPrefab, position,
-                Quaternion.identity) as GameObject;
-            go.GetComponent<SpriteRenderer>().sortingLayerName = "Path";
-            go.transform.parent = PathPiecesParent.transform;
-        }*/
 		
 		// create gameobject for each waypoint
 		int run = 0;
@@ -161,8 +153,9 @@ public class GameManager : MonoBehaviour {
 		moneyAvailable = levelData.money;
 	}
 	
-	private void executeChecks() {	
-		StartCoroutine(newRound());
+	private void executeChecks() {
+        if(!gameFinished)
+		    StartCoroutine(newRound());
 		gameFinished = true;
 	}
 	
@@ -187,7 +180,7 @@ public class GameManager : MonoBehaviour {
 		
 		
 		// create monsters endless
-		for (int n = 0; n > -1; n++) {
+		for (int n = 0; n > -1 && !gameFinished && gameState != GameState.Lost; n++) {
 
             // never stop this wave! only 1 wave needed.
 			
@@ -198,7 +191,7 @@ public class GameManager : MonoBehaviour {
 			Monster monsterComponent = monster.GetComponent<Monster>();
 
             // set health of new monster.
-            monsterComponent.health = 2 + (n / 5);
+            monsterComponent.health = 2 + (n / 5)*difficulty;
 			
 			// add monster to the monster list.
 			monsterList.Add(monster);
@@ -210,9 +203,9 @@ public class GameManager : MonoBehaviour {
 	
 	public void doDamage() {
 		if (nOfLives <= 1){
-			
 			// game is lost
 			nOfLives = 0;
+            gameState = GameState.Lost;
 			
 			// destroy the castle.
 			Destroy(playerCastle);
@@ -228,6 +221,29 @@ public class GameManager : MonoBehaviour {
 	public List<Vector2> getWaypoints() {
 		return levelData.waypointList;
 	}
+
+    void OnGUI(){
+        // display nr of lives left.
+        int width = Screen.width;
+        int height = Screen.height;
+
+        // size of buttons
+        int buttonWidth = width / 3;
+        int buttonHeight = height / 10;
+        GUIStyle labelFont = new GUIStyle("label");
+        labelFont.fontSize = 30;
+        GUIStyle buttonFont = new GUIStyle("button");
+        buttonFont.fontSize = 30;
+        GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
+
+        if(gameState == GameState.Lost) {
+            GUI.Label(new Rect(10, 60, buttonWidth/2, buttonHeight), "Game Over", labelFont);
+            if (GUI.Button(new Rect(10, 110, buttonWidth/2, buttonHeight), "Back", buttonFont))
+            {
+                Application.LoadLevel("LoginMenu");
+            }
+        }
+    }
 	
 	
 }
