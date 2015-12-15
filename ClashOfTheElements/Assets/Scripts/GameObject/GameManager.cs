@@ -219,7 +219,13 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public List<Vector2> getWaypoints() {
-		return levelData.waypointList;
+        if (levelData!= null)
+        {
+            return levelData.waypointList;
+        }
+        else {
+            return null;
+        }
 	}
 
     void OnGUI(){
