@@ -25,5 +25,5 @@
     <Round nOfEnemies="10" />
     <Round nOfEnemies="12" />
   </Waves>
-  <Misc money ="200"/>
+  <Misc gold ="50"/>
 </Elements>
