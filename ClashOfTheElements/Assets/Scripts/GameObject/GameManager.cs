@@ -47,8 +47,11 @@ public class GameManager : MonoBehaviour {
     // cost to build a tower
     public int towerCost;
 
-	// the current state of the game
-	public GameState gameState;
+    // bounty for killing monster
+    public int monsterReward;
+
+    // the current state of the game
+    public GameState gameState;
 	
 	// a bool to check if the game already finished
 	public bool gameFinished;
@@ -78,8 +81,10 @@ public class GameManager : MonoBehaviour {
 		
 		// set game to running
 		gameFinished = false;
-		
-	}
+
+        // add event handler to monster
+        Monster.OnMonsterDeath += collectGold;
+    }
 	
 	// update the game.
 	void Update () {
@@ -195,7 +200,7 @@ public class GameManager : MonoBehaviour {
 
             // set health of new monster.
             monsterComponent.health = 2 + (n / 5)*difficulty;
-			
+		
 			// add monster to the monster list.
 			monsterList.Add(monster);
 			
@@ -238,6 +243,11 @@ public class GameManager : MonoBehaviour {
             return null;
         }
 	}
+
+    // method for monsterDeath event
+    private void collectGold() {
+        goldAvailable += monsterReward;
+    }
 
     void OnGUI(){
         int width = Screen.width;
