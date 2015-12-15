@@ -3,14 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TileMapData: MonoBehaviour {
-    // Caution Sprite Types is hard coded
-    /*  0 = Water 
-        1 = Buildplace
-        2 = Sand
-        3 = Mountain
-    */
- 
-    // Data for one Tile on the map
+
     protected class DTile {
         protected int pos_x;
         protected int pos_y;  
@@ -27,7 +20,6 @@ public class TileMapData: MonoBehaviour {
 
     // Data of walkable tile 
     protected class DWalkableTile : DTile {
-        // Constructor
         public DWalkableTile(int x_pos, int y_pos) {
             this.pos_x = x_pos;
             this.pos_y = y_pos;
@@ -39,8 +31,6 @@ public class TileMapData: MonoBehaviour {
 
     // Data of Buildplaces tile 
     protected class DBuildTile : DTile {
-
-        // constructur
         public DBuildTile(int x_pos, int y_pos) {
             this.pos_x = x_pos;
             this.pos_y = y_pos;
@@ -62,8 +52,7 @@ public class TileMapData: MonoBehaviour {
     // for better performance use 1D array
     DTile [,] map_tiles;
 
-    //List of all Tiles
-
+    // tile map
     public TileMapData(int x_size, int y_size)
     {
 
@@ -91,9 +80,7 @@ public class TileMapData: MonoBehaviour {
             }
         }
 
-        //waypoints in XML files as Vector2d List
-        if (gameManagerScript.getWaypoints() != null)
-        {
+        if (gameManagerScript.getWaypoints() != null) {
             List<Vector2> wayPointsList = gameManagerScript.getWaypoints();
             // add path to tile 
             Debug.Log("Starting Pathing");
@@ -115,8 +102,7 @@ public class TileMapData: MonoBehaviour {
                         map_tiles[x, y] = new DWalkableTile(x, y);
                     }
                 }
-                else
-                { // we are moving horizontal
+                else {
                     int y = (int)current.y;
                     mini = Mathf.Min((int)current.x, (int)next.x);
                     maxi = Mathf.Max((int)current.x, (int)next.x);
@@ -129,8 +115,7 @@ public class TileMapData: MonoBehaviour {
             }
         }
     }
-
-    // return graphic ID for texture 
+ 
     public int GetTileAt(int x, int y)
     {
         return map_tiles[x, y].getGraphicID();
@@ -146,7 +131,8 @@ public class TileMapData: MonoBehaviour {
     }
 
     public void setTowerBool(int x, int y, bool theBool) {
-        map_tiles[x, y].has_tower_on_it = theBool;
+        if(!map_tiles[x, y].Iswalkable) {
+            map_tiles[x, y].has_tower_on_it = theBool;
+        }
     }
-    // add more tile logic and stuff 
 }

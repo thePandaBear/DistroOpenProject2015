@@ -41,7 +41,6 @@ public class TileMapMouse : MonoBehaviour {
 			currentTileCoord.y = y;
 
             selectionCube.transform.position = currentTileCoord;
-            //Debug.Log("Coordinate x: " + selectionCube.transform.position.x + ", y: " + selectionCube.transform.position.y);
 		}
 		else {
 			// Hide selection cube?

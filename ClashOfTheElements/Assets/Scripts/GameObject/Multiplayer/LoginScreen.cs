@@ -27,11 +27,11 @@ public class LoginScreen : MonoBehaviour {
 
 		// create custom style for bigger font
 		GUIStyle buttonFont = new GUIStyle("button");
-		buttonFont.fontSize = 40;
+		buttonFont.fontSize = width / 30;
 
 		// custom style for label font
 		GUIStyle labelFont = new GUIStyle ("label");
-		labelFont.fontSize = 60;
+		labelFont.fontSize = width / 30;
 
 		// create gui box
 		GUI.Box (new Rect (0, 0, width, height), "");
