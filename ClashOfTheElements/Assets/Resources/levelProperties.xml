@@ -5,12 +5,12 @@
   </PathLegs>
   <Waypoints>
     <Waypoint X="0" Y="0" />
-	<Waypoint X="10" Y="0" />
-	<Waypoint X="10" Y="2" />
-	<Waypoint X="4" Y="2" />
-	<Waypoint X="4" Y="4" />
-	<Waypoint X="7" Y="4" />
-	<Waypoint X="7" Y="7" />
+	  <Waypoint X="10" Y="0" />
+	  <Waypoint X="10" Y="2" />
+	  <Waypoint X="4" Y="2" />
+	  <Waypoint X="4" Y="4" />
+	  <Waypoint X="7" Y="4" />
+	  <Waypoint X="7" Y="7" />
   </Waypoints>
   <Castle X="7" Y="7" />
   <Waves>
