@@ -231,9 +231,9 @@ public class GameManager : MonoBehaviour {
         int buttonWidth = width / 3;
         int buttonHeight = height / 10;
         GUIStyle labelFont = new GUIStyle("label");
-        labelFont.fontSize = 30;
+        labelFont.fontSize = width/30;
         GUIStyle buttonFont = new GUIStyle("button");
-        buttonFont.fontSize = 30;
+        buttonFont.fontSize = width/30;
         GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
 
         if(gameState == GameState.Lost) {
