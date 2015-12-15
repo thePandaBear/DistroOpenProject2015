@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
 		gameState = GameState.Playing;
 		
 		// start new round
-		CheckAndStartNewRound();
+		executeChecks();
 		
 		// set game to running
 		gameFinished = false;
@@ -93,10 +93,10 @@ public class GameManager : MonoBehaviour {
 			if (nOfLives == 0) {
 				// no lives left. game is lost!
 				StopCoroutine(newRound());
-				DestroyExistingMonsters();
+				destroyAllMonsters();
 				gameState = GameState.Lost;
 			} else if (gameFinished && monsterList.Where(x => x != null).Count() == 0) {
-				DestroyExistingMonsters();
+				destroyAllMonsters();
 				gameState = GameState.Won;
 			}
 			break;
@@ -161,19 +161,12 @@ public class GameManager : MonoBehaviour {
 		moneyAvailable = levelData.money;
 	}
 	
-	private void CheckAndStartNewRound() {
-		/*if (currentRoundIndex < levelDataFromXML.Rounds.Count - 1) {
-            currentRoundIndex++;
-            StartCoroutine(NextRound());
-        } else {
-            FinalRoundFinished = true;
-        }*/
-		
+	private void executeChecks() {	
 		StartCoroutine(newRound());
 		gameFinished = true;
 	}
 	
-	private void DestroyExistingMonsters() {
+	private void destroyAllMonsters() {
 		//get all the enemies
 		foreach (var item in monsterList) {
 			if (item != null)
@@ -192,19 +185,20 @@ public class GameManager : MonoBehaviour {
 			difficulty = 1;
 		}
 		
-		// number of monsters depends on difficulty level
-		int amount = 6 + difficulty * 4;
-		// TODO: Use WAVE properties!
 		
-		
-		// create "amount" of monsters
-		for (int n = 0; n < amount; n++) {
+		// create monsters endless
+		for (int n = 0; n > -1; n++) {
+
+            // never stop this wave! only 1 wave needed.
 			
 			// create a new monster.
 			GameObject monster = Instantiate(monsterPrefab, waypoints[0].transform.position, Quaternion.identity) as GameObject;
 			
 			
 			Monster monsterComponent = monster.GetComponent<Monster>();
+
+            // set health of new monster.
+            monsterComponent.health = 2 + (n / 5);
 			
 			// add monster to the monster list.
 			monsterList.Add(monster);

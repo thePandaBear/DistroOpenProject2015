@@ -24,7 +24,7 @@ public class Monster : MonoBehaviour {
                 RemoveAndDestroy();
                 GameManager.Instance.doDamage();
             } else {
-                //next waypoint
+                //next waypoint 
                 nextWaypointIndex++;
                 //turn to waypoint
                 transform.LookAt(GameManager.Instance.waypoints[nextWaypointIndex].transform.position,
@@ -49,7 +49,7 @@ public class Monster : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.tag == "Arrow") {//if we're hit by an arrow
-            Debug.Log("I got hit! D:");
+            Debug.Log("I got hit! D:" + health.ToString());
             if (health > 0) {
                 //decrease enemy health
                 health -= Arrow.damage;
