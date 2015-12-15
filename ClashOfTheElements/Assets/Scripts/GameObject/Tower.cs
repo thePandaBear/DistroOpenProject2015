@@ -28,12 +28,12 @@ public class Tower : MonoBehaviour {
         if (State == TowerState.Searching) {
 
             //no enemies left?
-            if (GameManager.Instance.monsters.Where(x => x != null).Count() == 0) return;
+            if (GameManager.Instance.monsterList.Where(x => x != null).Count() == 0) return;
 
             //find the closest enemy
             //aggregate method proposed here
             //http://unitygems.com/linq-1-time-linq/
-            target = GameManager.Instance.monsters.Where(x => x != null)
+            target = GameManager.Instance.monsterList.Where(x => x != null)
            .Aggregate((current, next) => Vector2.Distance(current.transform.position, transform.position)
                < Vector2.Distance(next.transform.position, transform.position)
               ? current : next);

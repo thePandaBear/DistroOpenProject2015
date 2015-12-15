@@ -22,7 +22,7 @@ public class Monster : MonoBehaviour {
             //is this waypoint the last one?
             if (nextWaypointIndex == GameManager.Instance.waypoints.Length - 1) {
                 RemoveAndDestroy();
-                GameManager.Instance.takeDamage();
+                GameManager.Instance.doDamage();
             } else {
                 //next waypoint
                 nextWaypointIndex++;
@@ -43,7 +43,7 @@ public class Monster : MonoBehaviour {
 
     void RemoveAndDestroy() {
         //remove it from the enemy list
-        GameManager.Instance.monsters.Remove(this.gameObject);
+        GameManager.Instance.monsterList.Remove(this.gameObject);
         Destroy(this.gameObject);
     }
 
