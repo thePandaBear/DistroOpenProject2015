@@ -21,10 +21,14 @@ public class TileMapMouse : MonoBehaviour {
 
     private TileMapData mapData;
 
+    //The game manager
+    private GameManager gameManager;
+
 	void Start() {
 		_tileMap = GetComponent<TileMapVisual>();
         mapData = _tileMap.getMapData();
-	}
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -46,11 +50,20 @@ public class TileMapMouse : MonoBehaviour {
 			// Hide selection cube?
 		}
 		
-		if(Input.GetMouseButtonDown(0) && !mapData.checkForTower((int)currentTileCoord.x, (int)currentTileCoord.y) && !mapData.checkIsPath((int)currentTileCoord.x, (int)currentTileCoord.y)){
+		if(Input.GetMouseButtonDown(0)){
 			Debug.Log ("Click!");
-            mapData.setTowerBool((int)currentTileCoord.x, (int)currentTileCoord.y, true);
-            Tower t = Instantiate(towerPrefab);
-            t.transform.position = currentTileCoord + tileCenterOffset;
+
+            //check if tile is free and not on path
+            if (!mapData.checkIsPath((int)currentTileCoord.x, (int)currentTileCoord.y) && !mapData.checkForTower((int)currentTileCoord.x, (int)currentTileCoord.y)) {
+                //check if enough gold is available and if so pay for the tower
+                if (gameManager.payForTower()) {
+                    //update TileMapData
+                    mapData.setTowerBool((int)currentTileCoord.x, (int)currentTileCoord.y, true);
+                    //build Tower
+                    Tower t = Instantiate(towerPrefab);
+                    t.transform.position = currentTileCoord + tileCenterOffset;
+                }
+            }
 		}
 
     }

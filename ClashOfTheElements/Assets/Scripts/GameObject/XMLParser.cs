@@ -9,7 +9,7 @@ namespace Assets.Scripts {
 	public class XMLParser {
 		
 		// local variables to parse the xml file
-		public int money;
+		public int gold;
 		public List<Wave> roundList;
 		public List<Vector2> pathList;
 		public List<Vector2> waypointList;

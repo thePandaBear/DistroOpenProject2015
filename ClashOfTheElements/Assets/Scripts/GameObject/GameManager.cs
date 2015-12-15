@@ -38,12 +38,15 @@ public class GameManager : MonoBehaviour {
 	private GameObject waypointsParent;
 	
 	/** parameters for the gameplay **/
-	// amount of money that is available
-	public int moneyAvailable { get; private set; }
+	// currently available gold
+	public int goldAvailable { get; private set; }
 
     // number of lives available to the player
 	public int nOfLives = 10;
-	
+
+    // cost to build a tower
+    public int towerCost;
+
 	// the current state of the game
 	public GameState gameState;
 	
@@ -150,7 +153,7 @@ public class GameManager : MonoBehaviour {
 		waypoints = GameObject.FindGameObjectsWithTag("Waypoint")
 			.OrderBy(x => x.name).Select(x => x.transform).ToArray();
 		
-		moneyAvailable = levelData.money;
+		goldAvailable = levelData.gold;
 	}
 	
 	private void executeChecks() {
@@ -170,7 +173,7 @@ public class GameManager : MonoBehaviour {
 	IEnumerator newRound() {
 		
 		// player has 2 seconds to do something.
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(5f);
 		
 		// create new monsters
 		int difficulty = PlayerPrefs.GetInt ("difficulty");
@@ -217,13 +220,26 @@ public class GameManager : MonoBehaviour {
 			nOfLives--;
 		}
 	}
+
+    public Boolean payForTower() {
+        if(goldAvailable>=towerCost) {
+            goldAvailable -= towerCost;
+            return true;
+        } else { return false; }
+
+    }
 	
 	public List<Vector2> getWaypoints() {
-		return levelData.waypointList;
+        if (levelData!= null)
+        {
+            return levelData.waypointList;
+        }
+        else {
+            return null;
+        }
 	}
 
     void OnGUI(){
-        // display nr of lives left.
         int width = Screen.width;
         int height = Screen.height;
 
@@ -234,11 +250,15 @@ public class GameManager : MonoBehaviour {
         labelFont.fontSize = width/30;
         GUIStyle buttonFont = new GUIStyle("button");
         buttonFont.fontSize = width/30;
-        GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
 
-        if(gameState == GameState.Lost) {
-            GUI.Label(new Rect(10, 60, buttonWidth/2, buttonHeight), "Game Over", labelFont);
-            if (GUI.Button(new Rect(10, 110, buttonWidth/2, buttonHeight), "Back", buttonFont))
+        // nr of lives left
+        GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
+        // amount of gold left
+        GUI.Label(new Rect(10, 50, buttonWidth / 2, buttonHeight), "Gold: " + goldAvailable.ToString(), labelFont);
+
+        if (gameState == GameState.Lost) {
+            GUI.Label(new Rect(10, 100, buttonWidth/2, buttonHeight), "Game Over", labelFont);
+            if (GUI.Button(new Rect(10, 150, buttonWidth/2, buttonHeight), "Back", buttonFont))
             {
                 Application.LoadLevel("LoginMenu");
             }
