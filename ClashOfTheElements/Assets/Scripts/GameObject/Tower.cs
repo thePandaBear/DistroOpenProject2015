@@ -59,8 +59,6 @@ public class Tower : MonoBehaviour {
     }
 
     private void Shoot() {
-
-        Vector2 direction = target.transform.position - transform.position;
         //if the enemy is still close to us
         if (Time.time - lastFire > fireRate) {
 

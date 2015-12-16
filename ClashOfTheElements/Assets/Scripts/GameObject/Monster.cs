@@ -8,12 +8,10 @@ public class Monster : MonoBehaviour {
     int nextWaypointIndex = 0;
     public float Speed;
 
-	// Use this for initialization
-	void Start () {
- 
-	}
+    //Event call if dead
+    public delegate void monsterDeath();
+    public static event monsterDeath OnMonsterDeath;
 	
-	// Update is called once per frame
 	void Update () {
 
         if (Vector2.Distance(transform.position,
@@ -45,17 +43,21 @@ public class Monster : MonoBehaviour {
         //remove it from the enemy list
         GameManager.Instance.monsterList.Remove(this.gameObject);
         Destroy(this.gameObject);
+
+        //inform game manager of death
+        if (OnMonsterDeath != null)
+            OnMonsterDeath();
     }
 
     void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.tag == "Arrow") {//if we're hit by an arrow
-            Debug.Log("I got hit! D:" + health.ToString());
+            //Debug.Log("I got hit! D:" + health.ToString());
             if (health > 0) {
                 //decrease enemy health
                 health -= Arrow.damage;
                 if (health <= 0) {
                     RemoveAndDestroy();
-                    Debug.Log("I got killed! :'-(");
+                    //Debug.Log("I got killed! :'-(");
                 }
             }
             col.gameObject.GetComponent<Arrow>().Disable(); //disable the arrow

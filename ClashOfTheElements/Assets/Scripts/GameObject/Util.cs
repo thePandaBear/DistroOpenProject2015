@@ -109,10 +109,10 @@ namespace Assets.Scripts
 			XElement misc = xElement.Element("Misc");
 			
 			// get money value
-			int money = int.Parse (misc.Attribute ("money").Value);
+			int gold = int.Parse (misc.Attribute ("gold").Value);
 			
 			// set money value in parser object
-			xmlParser.money = money;
+			xmlParser.gold = gold;
 			
 			// return the parser object
 			Debug.Log ("Returning parsed object");

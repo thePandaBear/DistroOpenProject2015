@@ -85,7 +85,7 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!43 &46696392
+--- !u!43 &27299243
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -440,7 +440,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -452,7 +454,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1398146636}
-  m_Mesh: {fileID: 46696392}
+  m_Mesh: {fileID: 27299243}
 --- !u!64 &1398146640
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -464,7 +466,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 0
-  m_Mesh: {fileID: 46696392}
+  m_Mesh: {fileID: 27299243}
 --- !u!4 &1398146641
 Transform:
   m_ObjectHideFlags: 0
@@ -564,7 +566,9 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -605,6 +609,8 @@ MonoBehaviour:
   castlePrefab: {fileID: 152144, guid: 364e968739be07b41b56ce5bf1dfa0b2, type: 2}
   waypoints: []
   nOfLives: 10
+  towerCost: 5
+  monsterReward: 1
   gameState: 0
   gameFinished: 0
 --- !u!4 &1920234687

@@ -38,14 +38,20 @@ public class GameManager : MonoBehaviour {
 	private GameObject waypointsParent;
 	
 	/** parameters for the gameplay **/
-	// amount of money that is available
-	public int moneyAvailable { get; private set; }
+	// currently available gold
+	public int goldAvailable { get; private set; }
 
     // number of lives available to the player
 	public int nOfLives = 10;
-	
-	// the current state of the game
-	public GameState gameState;
+
+    // cost to build a tower
+    public int towerCost;
+
+    // bounty for killing monster
+    public int monsterReward;
+
+    // the current state of the game
+    public GameState gameState;
 	
 	// a bool to check if the game already finished
 	public bool gameFinished;
@@ -75,8 +81,10 @@ public class GameManager : MonoBehaviour {
 		
 		// set game to running
 		gameFinished = false;
-		
-	}
+
+        // add event handler to monster
+        Monster.OnMonsterDeath += collectGold;
+    }
 	
 	// update the game.
 	void Update () {
@@ -150,7 +158,7 @@ public class GameManager : MonoBehaviour {
 		waypoints = GameObject.FindGameObjectsWithTag("Waypoint")
 			.OrderBy(x => x.name).Select(x => x.transform).ToArray();
 		
-		moneyAvailable = levelData.money;
+		goldAvailable = levelData.gold;
 	}
 	
 	private void executeChecks() {
@@ -192,7 +200,7 @@ public class GameManager : MonoBehaviour {
 
             // set health of new monster.
             monsterComponent.health = 2 + (n / 5)*difficulty;
-			
+		
 			// add monster to the monster list.
 			monsterList.Add(monster);
 			
@@ -217,6 +225,14 @@ public class GameManager : MonoBehaviour {
 			nOfLives--;
 		}
 	}
+
+    public Boolean payForTower() {
+        if(goldAvailable>=towerCost) {
+            goldAvailable -= towerCost;
+            return true;
+        } else { return false; }
+
+    }
 	
 	public List<Vector2> getWaypoints() {
         if (levelData!= null)
@@ -228,8 +244,12 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
+    // method for monsterDeath event
+    private void collectGold() {
+        goldAvailable += monsterReward;
+    }
+
     void OnGUI(){
-        // display nr of lives left.
         int width = Screen.width;
         int height = Screen.height;
 
@@ -240,16 +260,18 @@ public class GameManager : MonoBehaviour {
         labelFont.fontSize = width/30;
         GUIStyle buttonFont = new GUIStyle("button");
         buttonFont.fontSize = width/30;
-        GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
 
-        if(gameState == GameState.Lost) {
-            GUI.Label(new Rect(10, 60, buttonWidth/2, buttonHeight), "Game Over", labelFont);
-            if (GUI.Button(new Rect(10, 110, buttonWidth/2, buttonHeight), "Back", buttonFont))
+        // nr of lives left
+        GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
+        // amount of gold left
+        GUI.Label(new Rect(10, 50, buttonWidth / 2, buttonHeight), "Gold: " + goldAvailable.ToString(), labelFont);
+
+        if (gameState == GameState.Lost) {
+            GUI.Label(new Rect(10, 100, buttonWidth/2, buttonHeight), "Game Over", labelFont);
+            if (GUI.Button(new Rect(10, 150, buttonWidth/2, buttonHeight), "Back", buttonFont))
             {
                 Application.LoadLevel("LoginMenu");
             }
         }
     }
-	
-	
 }
