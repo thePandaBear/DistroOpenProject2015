@@ -11,6 +11,8 @@ public class LobbyScreen : GameManager {
 
         gamename = PlayerPrefs.GetString("gamename");
 
+        NetworkManager.Instance.StartHost(gamename);
+
         /*
         PersistentData ps = GameObject.Find("notDestroyed").GetComponent("PersistentData") as PersistentData;
         gamename = ps.getGamename();

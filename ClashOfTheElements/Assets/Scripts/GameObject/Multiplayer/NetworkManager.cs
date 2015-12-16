@@ -26,12 +26,12 @@ public class NetworkManager : MonoBehaviour {
 			listenport =  UnityEngine.Random.Range (25000, 26000);
 			error= Network.InitializeServer (4, listenport, true);
 		}
-		MasterServer.RegisterHost ("gameType", gamename);
+		MasterServer.RegisterHost ("ClashOfTheElements", gamename);
 		Debug.Log ("server:  " + gamename); 
 	}
 
-    public void SearchServers(string gamename) {
-        MasterServer.RequestHostList(gamename);
+    public void SearchServers() {
+        MasterServer.RequestHostList("ClashOfTheElements");
     }
 
     void OnServerInitialized()

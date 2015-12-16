@@ -99,7 +99,7 @@ public class JoinScreen : MonoBehaviour {
         text = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth / 2, buttonHeight), text, textFont);
 
         if (GUI.Button(new Rect(buttonX + buttonWidth/2 + 6, buttonY, buttonWidth / 2-6, buttonHeight), "Search", buttonFont)) {
-            NetworkManager.Instance.SearchServers(text);
+            NetworkManager.Instance.SearchServers();
             hostList = NetworkManager.Instance.getServerList();
         }
 

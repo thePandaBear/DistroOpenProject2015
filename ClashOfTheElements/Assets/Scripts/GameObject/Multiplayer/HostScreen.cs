@@ -72,17 +72,21 @@ public class HostScreen : MonoBehaviour {
 		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "start LAN Server", buttonFont)){
 			//check if gamename is set, required to open a server
 				if(gamename != null && gamename.Length > 0) {
-                NetworkManager.Instance.StartHost(gamename);
+
+                    PlayerPrefs.SetString("gamename", gamename);
+                    Application.LoadLevel("Lobby");
+
+                
 
                 /* TEMP */
 
-                PlayerPrefs.SetString("gamename", gamename);
+                
                 /*
 					sorry yen, schnalle ned wieni das mues mache
 					PersistentData ps = GameObject.Find("notDestroyed").GetComponent("PersistentData") as PersistentData;
 					ps.setGamename(gamename);
                 */
-                Application.LoadLevel("Lobby");
+                
 				}else{
 					//TODO display some message
 					// !!probably not needed anymore.
