@@ -18,12 +18,13 @@ public class JoinScreen : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+		//the server List is never updated?
         serverList = new List<string>();
 		serverList.Add ("2");
     }
 
     void Update() {
-		/*
+
 		serverList.Clear();
 		if (MasterServer.PollHostList ().Length != 0) {
 			hostList = MasterServer.PollHostList();
@@ -32,7 +33,7 @@ public class JoinScreen : MonoBehaviour {
 				Debug.Log(hostList[i].gameName  + " xx");
 			}
 			MasterServer.ClearHostList();
-		}*/
+		}
     }
 
 	//request the HostList from MasterServer
@@ -98,8 +99,9 @@ public class JoinScreen : MonoBehaviour {
         text = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth / 2, buttonHeight), text, textFont);
 
         if (GUI.Button(new Rect(buttonX + buttonWidth/2 + 6, buttonY, buttonWidth / 2-6, buttonHeight), "Search", buttonFont)) {
-            NetworkManager.Instance.SearchServers();
-            hostList = NetworkManager.Instance.getServerList();
+           NetworkManager.Instance.SearchServers();
+        	 hostList = NetworkManager.Instance.getServerList();
+			getHostList();
         }
 
         // get scroll view size

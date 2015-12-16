@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &167470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 450102}
+  - 114: {fileID: 11431678}
+  - 114: {fileID: 11484126}
+  - 148: {fileID: 14842888}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &450102
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167470}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11431678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6393b2de7c72b1240899dcabd8b75b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeAdd: 0
+  rangeAddCost: 5
+  attackAdd: 0
+  attackAddCost: 5
+  fieldOffset: {x: .5, y: .5}
+  monsterList: []
+  playerCastle: {fileID: 0}
+  monsterPrefab: {fileID: 121922, guid: a704f794b2ac4ee4f80de4e9ab78709d, type: 2}
+  castlePrefab: {fileID: 152144, guid: 364e968739be07b41b56ce5bf1dfa0b2, type: 2}
+  waypoints: []
+  waypointsParent: {fileID: 0}
+  nOfLives: 10
+  towerCost: 5
+  monsterReward: 1
+  roundNumber: 0
+  gameState: 0
+  finishedSpawning: 0
+--- !u!114 &11484126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d52eacc99977e94a92519bfb0659570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ArrowPooler: {fileID: 0}
+  ArrowPrefab: {fileID: 125860, guid: 94da320383df7024dafcc6d1fb8a6b96, type: 2}
+--- !u!148 &14842888
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167470}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 450102}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 167470}
+  m_IsPrefabParent: 1

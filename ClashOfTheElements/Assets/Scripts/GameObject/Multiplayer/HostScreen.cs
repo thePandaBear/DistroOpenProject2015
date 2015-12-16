@@ -75,19 +75,7 @@ public class HostScreen : MonoBehaviour {
 					
                     PlayerPrefs.SetString("gamename", gamename);
 					NetworkManager.Instance.StartHost(gamename);
-                    Application.LoadLevel("Lobby");
-
-                /* TEMP */
-
-                
-                /*
-					sorry yen, schnalle ned wieni das mues mache
-					PersistentData ps = GameObject.Find("notDestroyed").GetComponent("PersistentData") as PersistentData;
-					ps.setGamename(gamename);
-<<<<<<< HEAD
-					Application.LoadLevel("LoginMenu");
-=======
-                */
+                    Application.LoadLevel("InGame");
 
 				}else{
 					//TODO display some message

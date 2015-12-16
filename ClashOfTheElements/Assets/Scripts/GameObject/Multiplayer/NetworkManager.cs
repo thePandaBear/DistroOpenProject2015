@@ -8,6 +8,7 @@ public class NetworkManager : MonoBehaviour {
 
 	public static NetworkManager Instance;
     private HostData[] hostList;
+	public GameObject gameManPrefab; 
 
     void Awake(){
 		Instance = this; 
@@ -59,6 +60,7 @@ public class NetworkManager : MonoBehaviour {
     private void JoinServer(HostData hostData)
     {
         Network.Connect(hostData);
+		Debug.Log ("server joined");
     }
 
     void OnConnectedToServer()
@@ -66,5 +68,7 @@ public class NetworkManager : MonoBehaviour {
         Debug.Log("Server Joined");
     }
 
-
+	private void SpawnGame(){
+		Network.Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
+	}
 }
