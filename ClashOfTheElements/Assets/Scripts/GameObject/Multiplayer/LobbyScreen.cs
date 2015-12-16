@@ -39,7 +39,7 @@ public class LobbyScreen : GameManager {
         executeChecks();
 
         // set game to running
-        finishedSpawning = false;
+        finishedSpawning = true;
 
         // add event handler to monster
         Monster.OnMonsterDeath += collectGold;
@@ -51,31 +51,25 @@ public class LobbyScreen : GameManager {
     }
 
     // update the game.
-    void Update()
-    {
+    void Update() {
 
-        switch (gameState)
-        {
+        switch (gameState) {
             // start of the game.
             case GameState.Start:
-                if (Input.GetMouseButtonUp(0))
-                {
+                if (Input.GetMouseButtonUp(0)) {
                     gameState = GameState.Playing;
                     StartCoroutine(newRound());
                 }
                 break;
             case GameState.Playing:
-                if (nOfLives == 0)
-                {
+                if (nOfLives == 0) {
                     // no lives left. game is lost!
                     StopCoroutine(newRound());
                     destroyAllMonsters();
                     gameState = GameState.Lost;
-                }
-                else if (finishedSpawning && monsterList.Where(x => x != null).Count() == 0)
-                {
-                    destroyAllMonsters();
-                    gameState = GameState.Won;
+                } else if (finishedSpawning && monsterList.Where(x => x != null).Count() == 0) {
+                    // player defeated all monsters in current round
+                    executeChecks();
                 }
                 break;
             case GameState.Won:
