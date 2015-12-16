@@ -297,6 +297,10 @@ public class GameManager : MonoBehaviour {
         GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
         // amount of gold left
         GUI.Label(new Rect(10, 10 + (int)(width / 50 * 1.5), buttonWidth / 2, buttonHeight), "Gold: " + goldAvailable.ToString(), labelFont);
+
+        // Tower Build Cost
+        GUI.Label(new Rect(10, 10 + (buttonHeight + buttonHeight)/2, buttonWidth, buttonHeight), "Tower Cost: " + towerCost.ToString(), labelFont);
+
         // upgrade tower attack button
         if(GUI.Button(new Rect(width - 10 - buttonWidth / 2, 10, buttonWidth / 2, buttonHeight), "Upgrade Range: " + rangeAddCost.ToString(), buttonFontSmall)) {
             // increase range if there is enough gold
