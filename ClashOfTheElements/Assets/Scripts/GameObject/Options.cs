@@ -75,7 +75,6 @@ public class Options : MonoBehaviour {
 			}
 			// save new difficulty
 			PlayerPrefs.SetInt("difficulty", difficulty);
-
 		}
 
 		// get username

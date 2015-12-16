@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
+using System.Collections.Generic;
+
 
 public class NetworkManager : MonoBehaviour {
 
@@ -8,6 +10,7 @@ public class NetworkManager : MonoBehaviour {
 
 	void Awake(){
 		Instance = this; 
+		DontDestroyOnLoad (transform.gameObject);
 	}
 
 	void Start () {
@@ -26,8 +29,18 @@ public class NetworkManager : MonoBehaviour {
 			listenport =  UnityEngine.Random.Range (25000, 26000);
 			error= Network.InitializeServer (4, listenport, true);
 		}
-		MasterServer.RegisterHost ("gameType", gamename);
+		MasterServer.RegisterHost ("clashofelements", gamename);
 		Debug.Log ("server:  " + gamename); 
 	}
+
+	void OnServerInitialized(){
+		Debug.Log ("server created");
+	}
+
+	void OnConnectedToServer(){
+		Debug.Log ("server joined");
+
+	}
+
 
 }

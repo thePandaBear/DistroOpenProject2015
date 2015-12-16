@@ -7,35 +7,37 @@ public class JoinScreen : MonoBehaviour {
 
     // list for servers
     private List<string> serverList;
+	private HostData[] hostList; 
 
-    // Use this for initialization
+
+	void Awake(){
+		getHostList ();
+	}
+
     void Start() {
         // example for adding server
         serverList = new List<string>();
-
         // !!!!!! ADD SERVERS TO THIS LIST! !!!!!!
-        serverList.Add("testserver1");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver2");
-        serverList.Add("testserver11");
+		serverList.Add ("2");
     }
 
-    // Update is called once per frame
     void Update() {
-        
+		serverList.Clear();
+		if (MasterServer.PollHostList ().Length != 0) {
+			hostList = MasterServer.PollHostList();
+			for(int i = 0; i<hostList.Length; i++){
+				serverList.Add(hostList[i].gameName);
+				Debug.Log(hostList[i].gameName  + " xx");
+			}
+			MasterServer.ClearHostList();
+		}
     }
 
+	//request the HostList from MasterServer
+	public void getHostList(){
+		MasterServer.RequestHostList ("clashofelements");
+	}
+	
     void OnGUI() {
 
         // previously w=1200, h=900

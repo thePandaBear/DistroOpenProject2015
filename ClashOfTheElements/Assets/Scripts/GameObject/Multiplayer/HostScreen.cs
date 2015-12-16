@@ -70,7 +70,7 @@ public class HostScreen : MonoBehaviour {
 					NetworkManager.Instance.StartHost(gamename);
 					PersistentData ps = GameObject.Find("notDestroyed").GetComponent("PersistentData") as PersistentData;
 					ps.setGamename(gamename);
-					Application.LoadLevel("Lobby");
+					Application.LoadLevel("LoginMenu");
 				}else{
 					//TODO display some message
 					// !!probably not needed anymore.
