@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class JoinScreen : MonoBehaviour {
 
     public Vector2 scrollPosition = Vector2.zero;
+    string text
 
     // list for servers
     private List<string> serverList;
@@ -94,8 +95,8 @@ public class JoinScreen : MonoBehaviour {
 
         // add label
         GUI.Label(new Rect(buttonX, buttonY / 2, buttonWidth, buttonHeight), "Join Multiplayer", labelFont);
-
-        string text = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth / 2, buttonHeight), "test", textFont);
+        text = "gamename";
+        text = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth / 2, buttonHeight), text, textFont);
 
         if (GUI.Button(new Rect(buttonX + buttonWidth/2 + 6, buttonY, buttonWidth / 2-6, buttonHeight), "Search", buttonFont)) {
             NetworkManager.Instance.SearchServers(text);

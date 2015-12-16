@@ -66,8 +66,8 @@ public class HostScreen : MonoBehaviour {
 			username = "Spongebob";
 			PlayerPrefs.SetString("username", username);
 		}
-
-        gamename = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), "Gamename", textFont);
+        gamename = "gamename";
+        gamename = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), gamename, textFont);
 
 		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "start LAN Server", buttonFont)){
 			//check if gamename is set, required to open a server
