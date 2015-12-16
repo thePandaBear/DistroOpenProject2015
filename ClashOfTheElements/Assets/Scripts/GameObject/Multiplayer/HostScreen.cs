@@ -10,10 +10,12 @@ public class HostScreen : MonoBehaviour {
 	InputField gamenameField; 
 
 	public void Start () {
+        /*
 		 usernameField = GameObject.Find("InputUsername").GetComponent<InputField>();
 		 gamenameField = GameObject.Find("InputGameName").GetComponent<InputField>();
 		 usernameField.onEndEdit.AddListener (setUsername);
 		 gamenameField.onEndEdit.AddListener (setGameName);
+         */
 	}
 
 	private void setUsername (string arg){
@@ -40,16 +42,19 @@ public class HostScreen : MonoBehaviour {
 		// get standard button height and width
 		int buttonX = width / 2 - buttonWidth / 2;
 		int buttonY = height / 6;
-		
-		// create custom style for bigger font
-		GUIStyle buttonFont = new GUIStyle("button");
-		buttonFont.fontSize = 40;
 
-		// create custom style for label font
-		GUIStyle labelFont = new GUIStyle("label");
-		labelFont.fontSize = 60;
+        // create custom style for bigger font
+        GUIStyle buttonFont = new GUIStyle("button");
+        buttonFont.fontSize = width / 30;
 
-		GUI.Box (new Rect (0, 0, width, height), "");
+        // create custom style for label font
+        GUIStyle labelFont = new GUIStyle("label");
+        labelFont.fontSize = width / 30;
+
+        GUIStyle textFont = new GUIStyle(GUI.skin.textField);
+        textFont.fontSize = width / 30;
+
+        GUI.Box (new Rect (0, 0, width, height), "");
 
 		GUI.Label (new Rect (buttonX, buttonY/2, buttonWidth, buttonHeight), "Host Game", labelFont);
 
@@ -62,7 +67,7 @@ public class HostScreen : MonoBehaviour {
 			PlayerPrefs.SetString("username", username);
 		}
 
-		GUI.Label (new Rect (buttonX, buttonY, buttonWidth, buttonHeight), "Username: " + username, labelFont);
+        gamename = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), "Gamename", textFont);
 
 		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "start LAN Server", buttonFont)){
 			//check if gamename is set, required to open a server
