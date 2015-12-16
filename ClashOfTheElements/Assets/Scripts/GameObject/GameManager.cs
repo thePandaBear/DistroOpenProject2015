@@ -7,7 +7,7 @@ using System;
 
 public class GameManager : MonoBehaviour {
 	
-	public static GameManager Instance { get; private set; }
+	public static GameManager Instance { get; protected set; }
 	
 	public static Vector2 getWaypointPosition(int index) {
 		return Instance.waypoints[index].transform.position;
@@ -16,18 +16,26 @@ public class GameManager : MonoBehaviour {
 	void Awake() {
 		Instance = this;
 	}
-	
-	// tile offset to calculate center of tile
-	private Vector2 fieldOffset = new Vector2 (0.5f, 0.5f);
+
+    // tower range control
+    public int rangeAdd = 0;
+    public int rangeAddCost = 5;
+
+    // tower attack control
+    public int attackAdd = 0;
+    public int attackAddCost = 5;
+
+    // tile offset to calculate center of tile
+    public Vector2 fieldOffset = new Vector2 (0.5f, 0.5f);
 	
 	// list to store monsters present in the game
 	public List<GameObject> monsterList;
 	
 	// gameobject for castle to defend
-	GameObject playerCastle;
+	public GameObject playerCastle;
 	
 	// xml file which stores level data
-	private XMLParser levelData;
+	public XMLParser levelData;
 	
 	// create gameobjects for previously fabricatet monster/castles
 	public GameObject monsterPrefab;
@@ -35,11 +43,11 @@ public class GameManager : MonoBehaviour {
 	
 	// list for waypoints
 	public Transform[] waypoints;
-	private GameObject waypointsParent;
+	public GameObject waypointsParent;
 	
 	/** parameters for the gameplay **/
 	// currently available gold
-	public int goldAvailable { get; private set; }
+	public int goldAvailable { get; protected set; }
 
     // number of lives available to the player
 	public int nOfLives = 10;
@@ -50,14 +58,19 @@ public class GameManager : MonoBehaviour {
     // bounty for killing monster
     public int monsterReward;
 
+    // the index of the current round
+    public int roundNumber = 0;
+
     // the current state of the game
     public GameState gameState;
-	
-	// a bool to check if the game already finished
-	public bool gameFinished;
-	
-	// initialization method
-	void Start () {
+
+    // a bool to check if a round has been launched completely
+    public bool finishedSpawning;
+
+    // initialization method
+    void Start () {
+
+        Debug.Log("Starting");
 		
 		// TODO: Add difficulty specific lives
 		
@@ -78,9 +91,9 @@ public class GameManager : MonoBehaviour {
 		
 		// start new round
 		executeChecks();
-		
-		// set game to running
-		gameFinished = false;
+
+        // nothing spawned yet
+        finishedSpawning = true;
 
         // add event handler to monster
         Monster.OnMonsterDeath += collectGold;
@@ -103,10 +116,10 @@ public class GameManager : MonoBehaviour {
 				StopCoroutine(newRound());
 				destroyAllMonsters();
 				gameState = GameState.Lost;
-			} else if (gameFinished && monsterList.Where(x => x != null).Count() == 0) {
-				destroyAllMonsters();
-				gameState = GameState.Won;
-			}
+			} else if (finishedSpawning && monsterList.Where(x => x != null).Count() == 0) {
+                    // player defeated all monsters in current round
+                    executeChecks();
+                }
 			break;
 		case GameState.Won:
 			if (Input.GetMouseButtonUp(0)) {
@@ -122,10 +135,11 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 	
-	private void initLevelFromXml() {
+	protected void initLevelFromXml() {
 		
 		// create gameobject for each waypoint
 		int run = 0;
+        waypoints = new Transform[levelData.waypointList.Count];
 		foreach (var waypoint in levelData.waypointList) {
 			
 			// create new game object
@@ -143,31 +157,30 @@ public class GameManager : MonoBehaviour {
 			
 			// set object position to position from waypoint
 			gameObject.transform.position = waypoint + fieldOffset;
-			
+
+            waypoints[run] = gameObject.transform;
+
 			run++;
 		}
-		
-		// create castle object
-		//playerCastle = new GameObject ();
-		// TODO!!
 		
 		playerCastle = Instantiate(castlePrefab, levelData.castlePosition + fieldOffset,
 		                           Quaternion.identity) as GameObject;
 		playerCastle.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
 		
-		waypoints = GameObject.FindGameObjectsWithTag("Waypoint")
-			.OrderBy(x => x.name).Select(x => x.transform).ToArray();
+		/*waypoints = GameObject.FindGameObjectsWithTag("Waypoint")
+			.OrderBy(x => x.name).Select(x => x.transform).ToArray();*/
 		
 		goldAvailable = levelData.gold;
 	}
-	
-	private void executeChecks() {
-        if(!gameFinished)
-		    StartCoroutine(newRound());
-		gameFinished = true;
-	}
-	
-	private void destroyAllMonsters() {
+
+    protected void executeChecks() {
+        if (finishedSpawning) {
+            StartCoroutine(newRound());
+            finishedSpawning = false;
+        }
+    }
+
+    protected void destroyAllMonsters() {
 		//get all the enemies
 		foreach (var item in monsterList) {
 			if (item != null)
@@ -175,39 +188,40 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 	
-	IEnumerator newRound() {
-		
-		// player has 2 seconds to do something.
-		yield return new WaitForSeconds(5f);
-		
-		// create new monsters
-		int difficulty = PlayerPrefs.GetInt ("difficulty");
-		if (difficulty == 0) {
-			difficulty = 1;
-		}
-		
-		
-		// create monsters endless
-		for (int n = 0; n > -1 && !gameFinished && gameState != GameState.Lost; n++) {
+	protected IEnumerator newRound() {
 
-            // never stop this wave! only 1 wave needed.
-			
-			// create a new monster.
-			GameObject monster = Instantiate(monsterPrefab, waypoints[0].transform.position, Quaternion.identity) as GameObject;
-			
-			
-			Monster monsterComponent = monster.GetComponent<Monster>();
+        // player has 5 seconds to do something.
+        yield return new WaitForSeconds(5f);
+
+        // create new monsters
+        int difficulty = PlayerPrefs.GetInt("difficulty");
+        if (difficulty == 0) {
+            difficulty = 1;
+        }
+
+        roundNumber++;
+
+        // create 10 monsters
+        for (int n = 0; n < 10 && gameState != GameState.Lost; n++) {
+
+            // create a new monster.
+            GameObject monster = Instantiate(monsterPrefab, waypoints[0].transform.position, Quaternion.identity) as GameObject;
+
+
+            Monster monsterComponent = monster.GetComponent<Monster>();
 
             // set health of new monster.
-            monsterComponent.health = 2 + (n / 5)*difficulty;
-		
-			// add monster to the monster list.
-			monsterList.Add(monster);
-			
-			// wait a short period of time until the next monster is spawned
-			yield return new WaitForSeconds(1f / (1));
-		}
-	}
+            monsterComponent.health = roundNumber * difficulty;
+
+            // add monster to the monster list.
+            monsterList.Add(monster);
+
+            // wait a short period of time until the next monster is spawned
+            yield return new WaitForSeconds(0.75f / (1));
+        }
+
+        finishedSpawning = true;
+    }
 	
 	public void doDamage() {
 		if (nOfLives <= 1){
@@ -230,8 +244,32 @@ public class GameManager : MonoBehaviour {
         if(goldAvailable>=towerCost) {
             goldAvailable -= towerCost;
             return true;
-        } else { return false; }
+        } else {
+            return false;
+        }
+    }
 
+    public Boolean payForRange() {
+        if(goldAvailable >= rangeAddCost) {
+            goldAvailable -= rangeAddCost;
+            rangeAddCost = rangeAddCost * 2;
+            rangeAdd++;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean payForAttack() {
+        if(goldAvailable >= attackAddCost) {
+            Debug.Log("Attack add Cost now: " + attackAddCost.ToString());
+            goldAvailable -= attackAddCost;
+            attackAddCost = attackAddCost * 2;
+            attackAdd++;
+            return true;
+        } else {
+            return false;
+        }
     }
 	
 	public List<Vector2> getWaypoints() {
@@ -245,7 +283,7 @@ public class GameManager : MonoBehaviour {
 	}
 
     // method for monsterDeath event
-    private void collectGold() {
+    protected void collectGold() {
         goldAvailable += monsterReward;
     }
 
@@ -260,11 +298,29 @@ public class GameManager : MonoBehaviour {
         labelFont.fontSize = width/30;
         GUIStyle buttonFont = new GUIStyle("button");
         buttonFont.fontSize = width/30;
+        GUIStyle buttonFontSmall = new GUIStyle("button");
+        buttonFontSmall.fontSize = width / 60;
 
         // nr of lives left
         GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
         // amount of gold left
-        GUI.Label(new Rect(10, 50, buttonWidth / 2, buttonHeight), "Gold: " + goldAvailable.ToString(), labelFont);
+        GUI.Label(new Rect(10, 10 + (int)(width / 50 * 1.5), buttonWidth / 2, buttonHeight), "Gold: " + goldAvailable.ToString(), labelFont);
+
+        // Tower Build Cost
+        GUI.Label(new Rect(10, 10 + (int)(width/ 50 * 3), buttonWidth, buttonHeight), "Tower Cost: " + towerCost.ToString(), labelFont);
+
+        // upgrade tower attack button
+        if(GUI.Button(new Rect(width - 10 - buttonWidth / 2, 10, buttonWidth / 2, buttonHeight), "Upgrade Range: " + rangeAddCost.ToString(), buttonFontSmall)) {
+            // increase range if there is enough gold
+            payForRange();
+        }
+
+        if(GUI.Button(new Rect(width - 10 - buttonWidth/2, 10+ (int)(width/50*3), buttonWidth/2, buttonHeight), "Upgrade Attack: " + attackAddCost.ToString(), buttonFontSmall)) {
+            // increase attack if there is enough gold
+            payForAttack();
+        }
+
+        // button to improve towers for gold
 
         if (gameState == GameState.Lost) {
             GUI.Label(new Rect(10, 100, buttonWidth/2, buttonHeight), "Game Over", labelFont);

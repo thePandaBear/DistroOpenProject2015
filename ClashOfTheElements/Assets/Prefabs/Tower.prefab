@@ -43,6 +43,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 0}
   fireRate: .5
   range: 2
+  gameManager: {fileID: 0}
 --- !u!212 &21234464
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -69,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 18d879b80519563408afd89018a08f8f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 349ef6b5d5398884fa15ee8213a47ed9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -90,6 +91,11 @@ Prefab:
       propertyPath: range
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 349ef6b5d5398884fa15ee8213a47ed9,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 158576}

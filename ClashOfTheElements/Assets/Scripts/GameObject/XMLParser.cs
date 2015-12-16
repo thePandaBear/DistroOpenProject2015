@@ -10,15 +10,11 @@ namespace Assets.Scripts {
 		
 		// local variables to parse the xml file
 		public int gold;
-		public List<Wave> roundList;
-		public List<Vector2> pathList;
 		public List<Vector2> waypointList;
 		public Vector2 castlePosition;
 		
 		public XMLParser() {
-			pathList = new List<Vector2>();
 			waypointList = new List<Vector2>();
-			roundList = new List<Wave>();
 		}
 	}
 	

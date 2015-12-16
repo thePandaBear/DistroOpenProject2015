@@ -8,11 +8,18 @@ public class Monster : MonoBehaviour {
     int nextWaypointIndex = 0;
     public float Speed;
 
-    //Event call if dead
+    public GameManager gameManager;
+
+    // event that is called once monster dies
     public delegate void monsterDeath();
     public static event monsterDeath OnMonsterDeath;
-	
-	void Update () {
+
+
+    void Start() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    void Update () {
 
         if (Vector2.Distance(transform.position,
             GameManager.Instance.waypoints[nextWaypointIndex].transform.position) < 0.01f) {
@@ -28,7 +35,7 @@ public class Monster : MonoBehaviour {
                 transform.LookAt(GameManager.Instance.waypoints[nextWaypointIndex].transform.position,
                     -Vector3.forward);
                 //only in the z axis
-                transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+                transform.eulerAngles = new Vector3(0, 0, -transform.eulerAngles.y);
             }
         }
 
@@ -54,7 +61,7 @@ public class Monster : MonoBehaviour {
             //Debug.Log("I got hit! D:" + health.ToString());
             if (health > 0) {
                 //decrease enemy health
-                health -= Arrow.damage;
+                health -= Arrow.damage + gameManager.attackAdd;
                 if (health <= 0) {
                     RemoveAndDestroy();
                     //Debug.Log("I got killed! :'-(");

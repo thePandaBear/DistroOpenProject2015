@@ -1,29 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Elements>
-  <PathLegs>
-    <Leg X="0" Y="0" />
-  </PathLegs>
   <Waypoints>
-    <Waypoint X="0" Y="0" />
-	  <Waypoint X="10" Y="0" />
-	  <Waypoint X="10" Y="2" />
-	  <Waypoint X="4" Y="2" />
-	  <Waypoint X="4" Y="4" />
-	  <Waypoint X="7" Y="4" />
-	  <Waypoint X="7" Y="7" />
+    <Waypoint X="0" Y="1" />
+	  <Waypoint X="12" Y="1" />
+	  <Waypoint X="12" Y="3" />
+	  <Waypoint X="7" Y="3" />
+	  <Waypoint X="7" Y="10" />
+    <Waypoint X="5" Y="10" />
+	  <Waypoint X="5" Y="12" />
+    <Waypoint X="2" Y="12" />
+    <Waypoint X="2" Y="5" />
+    <Waypoint X="11" Y="5" />
+    <Waypoint X="11" Y="12" />
   </Waypoints>
-  <Castle X="7" Y="7" />
-  <Waves>
-    <Round nOfEnemies="2" />
-    <Round nOfEnemies="2" />
-    <Round nOfEnemies="4" />
-    <Round nOfEnemies="4" />
-    <Round nOfEnemies="6" />
-    <Round nOfEnemies="6" />
-    <Round nOfEnemies="8" />
-    <Round nOfEnemies="8" />
-    <Round nOfEnemies="10" />
-    <Round nOfEnemies="12" />
-  </Waves>
-  <Misc gold ="7"/>
+  <Castle X="11" Y="13" />
+  <Misc gold ="8"/>
 </Elements>
