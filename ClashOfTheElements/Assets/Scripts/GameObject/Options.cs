@@ -11,8 +11,9 @@ public class Options : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// save username.
-		if(username.Equals("")) {
+        // save username.
+        username = PlayerPrefs.GetString("username");
+		if(username == null || username.Equals("")) {
 			username = "Spongebob";
 		}
 		PlayerPrefs.SetString("username", username);

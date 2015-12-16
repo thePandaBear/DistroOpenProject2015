@@ -9,7 +9,7 @@ public class HostScreen : MonoBehaviour {
 	InputField usernameField; 
 	InputField gamenameField; 
 
-	void Start () {
+	public void Start () {
 		 usernameField = GameObject.Find("InputUsername").GetComponent<InputField>();
 		 gamenameField = GameObject.Find("InputGameName").GetComponent<InputField>();
 		 usernameField.onEndEdit.AddListener (setUsername);
@@ -67,10 +67,18 @@ public class HostScreen : MonoBehaviour {
 		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "start LAN Server", buttonFont)){
 			//check if gamename is set, required to open a server
 				if(gamename != null && gamename.Length > 0) {
-					NetworkManager.Instance.StartHost(gamename);
+
+                NetworkManager.Instance.StartHost(gamename);
+
+                /* TEMP */
+
+                PlayerPrefs.SetString("gamename", gamename);
+                /*
+					sorry yen, schnalle ned wieni das mues mache
 					PersistentData ps = GameObject.Find("notDestroyed").GetComponent("PersistentData") as PersistentData;
 					ps.setGamename(gamename);
-					Application.LoadLevel("Lobby");
+                */
+                Application.LoadLevel("Lobby");
 				}else{
 					//TODO display some message
 					// !!probably not needed anymore.

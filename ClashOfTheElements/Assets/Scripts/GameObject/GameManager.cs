@@ -7,7 +7,7 @@ using System;
 
 public class GameManager : MonoBehaviour {
 	
-	public static GameManager Instance { get; private set; }
+	public static GameManager Instance { get; protected set; }
 	
 	public static Vector2 getWaypointPosition(int index) {
 		return Instance.waypoints[index].transform.position;
@@ -26,16 +26,16 @@ public class GameManager : MonoBehaviour {
     public int attackAddCost = 5;
 
     // tile offset to calculate center of tile
-    private Vector2 fieldOffset = new Vector2 (0.5f, 0.5f);
+    public Vector2 fieldOffset = new Vector2 (0.5f, 0.5f);
 	
 	// list to store monsters present in the game
 	public List<GameObject> monsterList;
 	
 	// gameobject for castle to defend
-	GameObject playerCastle;
+	public GameObject playerCastle;
 	
 	// xml file which stores level data
-	private XMLParser levelData;
+	public XMLParser levelData;
 	
 	// create gameobjects for previously fabricatet monster/castles
 	public GameObject monsterPrefab;
@@ -43,11 +43,11 @@ public class GameManager : MonoBehaviour {
 	
 	// list for waypoints
 	public Transform[] waypoints;
-	private GameObject waypointsParent;
+	public GameObject waypointsParent;
 	
 	/** parameters for the gameplay **/
 	// currently available gold
-	public int goldAvailable { get; private set; }
+	public int goldAvailable { get; protected set; }
 
     // number of lives available to the player
 	public int nOfLives = 10;
@@ -66,6 +66,8 @@ public class GameManager : MonoBehaviour {
 	
 	// initialization method
 	void Start () {
+
+        Debug.Log("Starting");
 		
 		// TODO: Add difficulty specific lives
 		
@@ -130,7 +132,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 	
-	private void initLevelFromXml() {
+	protected void initLevelFromXml() {
 		
 		// create gameobject for each waypoint
 		int run = 0;
@@ -165,13 +167,13 @@ public class GameManager : MonoBehaviour {
 		goldAvailable = levelData.gold;
 	}
 	
-	private void executeChecks() {
+	protected void executeChecks() {
         if(!gameFinished)
 		    StartCoroutine(newRound());
 		gameFinished = true;
 	}
-	
-	private void destroyAllMonsters() {
+
+    protected void destroyAllMonsters() {
 		//get all the enemies
 		foreach (var item in monsterList) {
 			if (item != null)
@@ -179,7 +181,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 	
-	IEnumerator newRound() {
+	protected IEnumerator newRound() {
 		
 		// player has 2 seconds to do something.
 		yield return new WaitForSeconds(5f);
@@ -273,7 +275,7 @@ public class GameManager : MonoBehaviour {
 	}
 
     // method for monsterDeath event
-    private void collectGold() {
+    protected void collectGold() {
         goldAvailable += monsterReward;
     }
 
