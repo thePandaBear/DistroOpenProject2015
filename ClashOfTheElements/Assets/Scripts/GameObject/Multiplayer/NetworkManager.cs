@@ -36,11 +36,7 @@ public class NetworkManager : MonoBehaviour {
 	void OnServerInitialized(){
 		Debug.Log ("server created");
 	}
-
-	void OnConnectedToServer(){
-		Debug.Log ("server joined");
-
-	}
+	
 
 
 }
