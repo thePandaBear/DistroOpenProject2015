@@ -8,10 +8,14 @@ public class JoinScreen : MonoBehaviour {
     // list for servers
     private List<string> serverList;
 
+    private HostData[] hostList;
+
     // Use this for initialization
     void Start() {
         // example for adding server
         serverList = new List<string>();
+
+        
 
         // !!!!!! ADD SERVERS TO THIS LIST! !!!!!!
         serverList.Add("testserver1");
@@ -77,32 +81,48 @@ public class JoinScreen : MonoBehaviour {
         // box style 1
         GUIStyle listStyle = new GUIStyle(GUI.skin.box);
         listStyle.normal.background = texture;
-        
+
+        GUIStyle textFont = new GUIStyle(GUI.skin.textField);
+        textFont.fontSize = width / 30;
+
         // create gui box
         GUI.Box(new Rect(0, 0, width, height), "");
 
         // create list background
-        GUI.Box(new Rect(buttonX-6, buttonY-6, buttonWidth+12, buttonHeight * 5+12), "", listStyle);
+        GUI.Box(new Rect(buttonX-6, buttonY*2-6, buttonWidth+12, buttonHeight * 5+12), "", listStyle);
 
 
         // add label
         GUI.Label(new Rect(buttonX, buttonY / 2, buttonWidth, buttonHeight), "Join Multiplayer", labelFont);
 
+        string text = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth / 2, buttonHeight), "test", textFont);
+
+        if (GUI.Button(new Rect(buttonX + buttonWidth/2 + 6, buttonY, buttonWidth / 2-6, buttonHeight), "Search", buttonFont)) {
+            NetworkManager.Instance.SearchServers(text);
+            hostList = NetworkManager.Instance.getServerList();
+        }
+
         // get scroll view size
         int scrollViewSize = 60 + (int)(width / 50 * 1.5) * (serverList.Count - 1);
 
         // begin the scroll view for the server listing
-        scrollPosition = GUI.BeginScrollView(new Rect(buttonX, buttonY, buttonWidth, buttonHeight*5), scrollPosition, new Rect(0, 0, buttonWidth-20, scrollViewSize));
+        scrollPosition = GUI.BeginScrollView(new Rect(buttonX, buttonY*2, buttonWidth, buttonHeight*5), scrollPosition, new Rect(0, 0, buttonWidth-20, scrollViewSize));
 
-        for(int i = 0; i < serverList.Count; i++) {
-            GUI.Label(new Rect(10, 10 + (int)(width / 50 * 1.5)*i, buttonWidth / 5 * 4 - 20, 100), serverList[i], serverFont);
+        if(hostList != null) {
+            for (int i = 0; i < hostList.Length; i++)
+            {
+                GUI.Label(new Rect(10, 10 + (int)(width / 50 * 1.5) * i, buttonWidth / 5 * 4 - 20, 100), hostList[i].gameType, serverFont);
+            }
+            if(hostList.Length < 1) {
+                GUI.Label(new Rect(10, 10, buttonWidth / 5 * 4 - 20, 100), "No servers found", serverFont);
+            }
         }
 
         // end the scroll view
         GUI.EndScrollView();
 
         // add back button to screen
-        if (GUI.Button(new Rect(buttonX, (int)(buttonY *4.5) , buttonWidth, buttonHeight), "Back", buttonFont)) {
+        if (GUI.Button(new Rect(buttonX, (int)(buttonY *5) , buttonWidth, buttonHeight), "Back", buttonFont)) {
             Application.LoadLevel("LoginMenu");
         }
     }

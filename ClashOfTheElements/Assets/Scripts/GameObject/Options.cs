@@ -40,6 +40,9 @@ public class Options : MonoBehaviour {
 		// create custom style for label font
 		GUIStyle labelFont = new GUIStyle("label");
 		labelFont.fontSize = width / 30;
+
+        GUIStyle textFont = new GUIStyle(GUI.skin.textField);
+        textFont.fontSize = width / 30;
 		
 		// create gui box
 		GUI.Box (new Rect (0, 0, width, height), "");
@@ -88,7 +91,7 @@ public class Options : MonoBehaviour {
 			PlayerPrefs.SetString("username", username);
 		}
 
-		username = GUI.TextField (new Rect (buttonX, buttonY*2, buttonWidth, buttonHeight), username, labelFont);
+		username = GUI.TextField (new Rect (buttonX, buttonY*2, buttonWidth, buttonHeight), username, textFont);
 
 		if(GUI.Button(new Rect(buttonX,buttonY*3,buttonWidth,buttonHeight), "Back", buttonFont)){
 			Application.LoadLevel("LoginMenu");

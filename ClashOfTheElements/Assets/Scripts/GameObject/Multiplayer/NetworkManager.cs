@@ -4,9 +4,10 @@ using UnityEngine.Networking;
 
 public class NetworkManager : MonoBehaviour {
 
-	public static NetworkManager Instance; 
+	public static NetworkManager Instance;
+    private HostData[] hostList;
 
-	void Awake(){
+    void Awake(){
 		Instance = this; 
 	}
 
@@ -17,7 +18,6 @@ public class NetworkManager : MonoBehaviour {
 	}
 
 	public void StartHost(string gamename){
-
 		int listenport = 25000;
 		NetworkConnectionError error = Network.InitializeServer (4, listenport, true);
 
@@ -29,5 +29,37 @@ public class NetworkManager : MonoBehaviour {
 		MasterServer.RegisterHost ("gameType", gamename);
 		Debug.Log ("server:  " + gamename); 
 	}
+
+    public void SearchServers(string gamename) {
+        MasterServer.RequestHostList(gamename);
+    }
+
+    void OnServerInitialized()
+    {
+        Debug.Log("Server Initializied");
+    }
+
+    void OnMasterServerEvent(MasterServerEvent msEvent)
+    {
+        if (msEvent == MasterServerEvent.HostListReceived)
+        {
+            // get hotlist
+            hostList = MasterServer.PollHostList();
+        }
+    }
+
+    public HostData[] getServerList() {
+        return hostList;
+    }
+
+    private void JoinServer(HostData hostData)
+    {
+        Network.Connect(hostData);
+    }
+
+    void OnConnectedToServer()
+    {
+        Debug.Log("Server Joined");
+    }
 
 }

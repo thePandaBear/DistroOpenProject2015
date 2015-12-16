@@ -67,7 +67,6 @@ public class HostScreen : MonoBehaviour {
 		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "start LAN Server", buttonFont)){
 			//check if gamename is set, required to open a server
 				if(gamename != null && gamename.Length > 0) {
-
                 NetworkManager.Instance.StartHost(gamename);
 
                 /* TEMP */
