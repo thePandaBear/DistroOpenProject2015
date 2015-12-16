@@ -25,7 +25,7 @@ public class TileMapData: MonoBehaviour {
             this.pos_y = y_pos;
             Iswalkable = true;
             has_tower_on_it = false;
-            tileGraphicId = 2;
+            tileGraphicId = 1;
         }
     }
 
@@ -36,7 +36,7 @@ public class TileMapData: MonoBehaviour {
             this.pos_y = y_pos;
             Iswalkable = false;
             has_tower_on_it = false;
-            tileGraphicId = 1;
+            tileGraphicId = 0;
         }
     }
 
