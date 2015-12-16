@@ -9,77 +9,70 @@ public class Tower : MonoBehaviour {
 	public float fireRate = 2f;
 	private float lastFire = 0f;
 	GameObject target;
-	public float initialArrowForce = 500f;
     private TowerState State;
     public float range;
+    public GameManager gameManager;
 
     void Start () {
-	
-		State = TowerState.Searching;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        State = TowerState.Searching;
 	}
 
 	void Update () {
 
-        /*//if we're in the last round and we've killed all monsters, do nothing
-        if (GameManager.Instance.finalRoundFinished &&
-            GameManager.Instance.monsters.Where(x => x != null).Count() == 0)
-            State = TowerState.Inactive;*/
-
-        //searching for an enemy
+        // check the state of the tower
         if (State == TowerState.Searching) {
+            // tower is searching for an enemy
+            
+            // check if there are enemies on the map
+            if (GameManager.Instance.monsterList.Where(x => x != null).Count() == 0) return;
 
-            //no enemies left?
-            if (GameManager.Instance.monsters.Where(x => x != null).Count() == 0) return;
+            // set target to closest enemy
+            target = GameManager.Instance.monsterList.Where(x => x != null).Aggregate((current, next) => Vector2.Distance(current.transform.position, transform.position) < Vector2.Distance(next.transform.position, transform.position) ? current : next);
 
-            //find the closest enemy
-            //aggregate method proposed here
-            //http://unitygems.com/linq-1-time-linq/
-            target = GameManager.Instance.monsters.Where(x => x != null)
-           .Aggregate((current, next) => Vector2.Distance(current.transform.position, transform.position)
-               < Vector2.Distance(next.transform.position, transform.position)
-              ? current : next);
-
-            //if there is an enemy and is close to us, target it
-            if (target != null && target.activeSelf
-                && Vector3.Distance(transform.position, target.transform.position)
-                < range) {
+            // check if the target is in range
+            if (target != null && target.activeSelf && Vector3.Distance(transform.position, target.transform.position) < range + gameManager.rangeAdd) {
+                // target is in range, set state to targeting
                 State = TowerState.Targeting;
             }
-
         } else if (State == TowerState.Targeting) {
-            //if the targeted enemy is still close to us, look at it and shoot!
-            if (target != null
-                && Vector3.Distance(transform.position, target.transform.position)
-                    < range) {
-                Shoot();
-            } else //enemy has left our shooting range, so look for another one
-              {
+            // tower is targeting enemy
+
+            // check if target is still in range
+            if (target != null && Vector3.Distance(transform.position, target.transform.position) < range + gameManager.rangeAdd) {
+
+                // enemy is in shooting range, execute attack
+                attack();
+            } else {
+                // enemy is no more in shooting range, change state to searching again
                 State = TowerState.Searching;
             }
         }
     }
 
-    private void Shoot() {
-
-        Vector2 direction = target.transform.position - transform.position;
-        //if the enemy is still close to us
+    private void attack() {
+        
+        // check if the tower has reloaded already
         if (Time.time - lastFire > fireRate) {
-
-            if (target != null && target.activeSelf
-            && Vector3.Distance(transform.position, target.transform.position)
-                    < range) {
-                //create a new arrow
+            // tower is ready to shoot
+            // check if target is still in range
+            if (target != null && target.activeSelf && Vector3.Distance(transform.position, target.transform.position) < range + gameManager.rangeAdd) {
+                // target is still in range
+                // create a new arrow to shoot
                 GameObject go = ObjectPoolerManager.Instance.ArrowPooler.GetPooledObject();
                 go.transform.position = transform.position;
                 go.transform.rotation = transform.rotation;
+
+				// set direction of arrow towards target
+				go.GetComponent<Arrow>().setTarget(target.transform);
+
+                // activate arrow
                 go.SetActive(true);
-                //SHOOT IT!
-                go.GetComponent<Rigidbody2D>().AddForce(direction * initialArrowForce);
-            } else//find another enemy
-              {
+            } else {
+                // target is no more in range, change state to searching again
                 State = TowerState.Searching;
             }
-
+            // update the last fired time
             lastFire = Time.time;
         }
     }

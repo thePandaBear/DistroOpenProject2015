@@ -8,13 +8,18 @@ public class Monster : MonoBehaviour {
     int nextWaypointIndex = 0;
     public float Speed;
 
-	// Use this for initialization
-	void Start () {
- 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    public GameManager gameManager;
+
+    // event that is called once monster dies
+    public delegate void monsterDeath();
+    public static event monsterDeath OnMonsterDeath;
+
+
+    void Start() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    void Update () {
 
         if (Vector2.Distance(transform.position,
             GameManager.Instance.waypoints[nextWaypointIndex].transform.position) < 0.01f) {
@@ -22,9 +27,9 @@ public class Monster : MonoBehaviour {
             //is this waypoint the last one?
             if (nextWaypointIndex == GameManager.Instance.waypoints.Length - 1) {
                 RemoveAndDestroy();
-                GameManager.Instance.takeDamage();
+                GameManager.Instance.doDamage();
             } else {
-                //next waypoint
+                //next waypoint 
                 nextWaypointIndex++;
                 //turn to waypoint
                 transform.LookAt(GameManager.Instance.waypoints[nextWaypointIndex].transform.position,
@@ -43,19 +48,23 @@ public class Monster : MonoBehaviour {
 
     void RemoveAndDestroy() {
         //remove it from the enemy list
-        GameManager.Instance.monsters.Remove(this.gameObject);
+        GameManager.Instance.monsterList.Remove(this.gameObject);
         Destroy(this.gameObject);
+
+        //inform game manager of death
+        if (OnMonsterDeath != null)
+            OnMonsterDeath();
     }
 
     void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.tag == "Arrow") {//if we're hit by an arrow
-            Debug.Log("I got hit! D:");
+            //Debug.Log("I got hit! D:" + health.ToString());
             if (health > 0) {
                 //decrease enemy health
-                health -= Arrow.damage;
+                health -= Arrow.damage + gameManager.attackAdd;
                 if (health <= 0) {
                     RemoveAndDestroy();
-                    Debug.Log("I got killed! :'-(");
+                    //Debug.Log("I got killed! :'-(");
                 }
             }
             col.gameObject.GetComponent<Arrow>().Disable(); //disable the arrow
