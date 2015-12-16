@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour {
 		
 		// create gameobject for each waypoint
 		int run = 0;
+        waypoints = new Transform[levelData.waypointList.Count];
 		foreach (var waypoint in levelData.waypointList) {
 			
 			// create new game object
@@ -156,7 +157,9 @@ public class GameManager : MonoBehaviour {
 			
 			// set object position to position from waypoint
 			gameObject.transform.position = waypoint + fieldOffset;
-			
+
+            waypoints[run] = gameObject.transform;
+
 			run++;
 		}
 		
@@ -164,8 +167,8 @@ public class GameManager : MonoBehaviour {
 		                           Quaternion.identity) as GameObject;
 		playerCastle.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
 		
-		waypoints = GameObject.FindGameObjectsWithTag("Waypoint")
-			.OrderBy(x => x.name).Select(x => x.transform).ToArray();
+		/*waypoints = GameObject.FindGameObjectsWithTag("Waypoint")
+			.OrderBy(x => x.name).Select(x => x.transform).ToArray();*/
 		
 		goldAvailable = levelData.gold;
 	}

@@ -5,7 +5,8 @@
 	  <Waypoint X="12" Y="1" />
 	  <Waypoint X="12" Y="3" />
 	  <Waypoint X="7" Y="3" />
-	  <Waypoint X="7" Y="12" />
+	  <Waypoint X="7" Y="10" />
+    <Waypoint X="5" Y="10" />
 	  <Waypoint X="5" Y="12" />
     <Waypoint X="2" Y="12" />
     <Waypoint X="2" Y="5" />

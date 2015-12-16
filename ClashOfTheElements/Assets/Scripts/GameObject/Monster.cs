@@ -35,7 +35,7 @@ public class Monster : MonoBehaviour {
                 transform.LookAt(GameManager.Instance.waypoints[nextWaypointIndex].transform.position,
                     -Vector3.forward);
                 //only in the z axis
-                transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+                transform.eulerAngles = new Vector3(0, 0, -transform.eulerAngles.y);
             }
         }
 
