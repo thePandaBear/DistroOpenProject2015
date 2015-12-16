@@ -26,45 +26,7 @@ namespace Assets.Scripts
 			
 			// get elements from xDocument
 			XElement xElement = xDocument.Element("Elements");
-			
-			// get path legs
-			var legs = xElement.Element("PathLegs").Elements("Leg");
-			
-			// parse each leg seperately
-			foreach (var leg in legs) {
-				
-				// get the x value of this leg
-				float xPosition = float.Parse(leg.Attribute("X").Value);
-				
-				// get the y value of this leg
-				float yPosition = float.Parse(leg.Attribute("Y").Value);
-				
-				// create vector from the two values
-				Vector2 vectorLeg = new Vector2(xPosition, yPosition);
-				
-				// add vector to the path list
-				xmlParser.pathList.Add(vectorLeg);
-			}
-			Debug.Log ("All legs added");
-			
-			// get rounds
-			var waves = xElement.Element("Waves").Elements("Wave");
-			
-			// parse each wave seperately
-			foreach (var wave in waves) {
-				
-				// get number of enemies in current round
-				int numberOfEnemies = int.Parse(wave.Attribute("nOfEnemies").Value);
-				
-				// create a new round
-				Wave newWave = new Wave() {
-					nOfEnemies = numberOfEnemies,
-				};
-				
-				// add round to round list
-				xmlParser.roundList.Add (newWave);
-			}
-			
+												
 			Debug.Log ("All waves added");
 			
 			
