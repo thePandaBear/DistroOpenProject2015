@@ -32,6 +32,7 @@ public class TileMapMouse : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        bool preventBuild = false;
 		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 		RaycastHit hitInfo;
 		
@@ -47,14 +48,15 @@ public class TileMapMouse : MonoBehaviour {
             selectionCube.transform.position = currentTileCoord;
 		}
 		else {
-			// Hide selection cube?
+            preventBuild = true;
 		}
 		
 		if(Input.GetMouseButtonDown(0)){
 			Debug.Log ("Click!");
 
             //check if tile is free and not on path
-            if (!mapData.checkIsPath((int)currentTileCoord.x, (int)currentTileCoord.y) && !mapData.checkForTower((int)currentTileCoord.x, (int)currentTileCoord.y)) {
+            if (!mapData.checkIsPath((int)currentTileCoord.x, (int)currentTileCoord.y) && !mapData.checkForTower((int)currentTileCoord.x, (int)currentTileCoord.y) && !preventBuild) {
+
                 //check if enough gold is available and if so pay for the tower
                 if (gameManager.payForTower()) {
                     //update TileMapData

@@ -16,9 +16,17 @@ public class GameManager : MonoBehaviour {
 	void Awake() {
 		Instance = this;
 	}
-	
-	// tile offset to calculate center of tile
-	private Vector2 fieldOffset = new Vector2 (0.5f, 0.5f);
+
+    // tower range control
+    public int rangeAdd = 0;
+    public int rangeAddCost = 5;
+
+    // tower attack control
+    public int attackAdd = 0;
+    public int attackAddCost = 5;
+
+    // tile offset to calculate center of tile
+    private Vector2 fieldOffset = new Vector2 (0.5f, 0.5f);
 	
 	// list to store monsters present in the game
 	public List<GameObject> monsterList;
@@ -147,10 +155,6 @@ public class GameManager : MonoBehaviour {
 			run++;
 		}
 		
-		// create castle object
-		//playerCastle = new GameObject ();
-		// TODO!!
-		
 		playerCastle = Instantiate(castlePrefab, levelData.castlePosition + fieldOffset,
 		                           Quaternion.identity) as GameObject;
 		playerCastle.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
@@ -230,8 +234,32 @@ public class GameManager : MonoBehaviour {
         if(goldAvailable>=towerCost) {
             goldAvailable -= towerCost;
             return true;
-        } else { return false; }
+        } else {
+            return false;
+        }
+    }
 
+    public Boolean payForRange() {
+        if(goldAvailable >= rangeAddCost) {
+            goldAvailable -= rangeAddCost;
+            rangeAddCost = rangeAddCost * 2;
+            rangeAdd++;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean payForAttack() {
+        if(goldAvailable >= attackAddCost) {
+            Debug.Log("Attack add Cost now: " + attackAddCost.ToString());
+            goldAvailable -= attackAddCost;
+            attackAddCost = attackAddCost * 2;
+            attackAdd++;
+            return true;
+        } else {
+            return false;
+        }
     }
 	
 	public List<Vector2> getWaypoints() {
@@ -260,11 +288,23 @@ public class GameManager : MonoBehaviour {
         labelFont.fontSize = width/30;
         GUIStyle buttonFont = new GUIStyle("button");
         buttonFont.fontSize = width/30;
+        GUIStyle buttonFontSmall = new GUIStyle("button");
+        buttonFontSmall.fontSize = width / 60;
 
         // nr of lives left
         GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
         // amount of gold left
         GUI.Label(new Rect(10, 10 + (int)(width / 50 * 1.5), buttonWidth / 2, buttonHeight), "Gold: " + goldAvailable.ToString(), labelFont);
+        // upgrade tower attack button
+        if(GUI.Button(new Rect(width - 10 - buttonWidth / 2, 10, buttonWidth / 2, buttonHeight), "Upgrade Range: " + rangeAddCost.ToString(), buttonFontSmall)) {
+            // increase range if there is enough gold
+            payForRange();
+        }
+
+        if(GUI.Button(new Rect(width - 10 - buttonWidth/2, 10+ (int)(width/50*3), buttonWidth/2, buttonHeight), "Upgrade Attack: " + attackAddCost.ToString(), buttonFontSmall)) {
+            // increase attack if there is enough gold
+            payForAttack();
+        }
 
         // button to improve towers for gold
 
