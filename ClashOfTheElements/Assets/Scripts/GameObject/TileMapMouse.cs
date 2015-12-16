@@ -24,21 +24,27 @@ public class TileMapMouse : MonoBehaviour {
     //The game manager
     private GameManager gameManager;
 
-    
+    private bool isAndroid;
 
 	void Start() {
 		_tileMap = GetComponent<TileMapVisual>();
         mapData = _tileMap.getMapData();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        // check for the runtime system 
+        isAndroid = Application.platform == RuntimePlatform.Android;
+        
     }
 
 	// Update is called once per frame
 	void Update () {
-        
+        if (isAndroid)
+            androidControl();
+        else
+            windowsControl();
     }
 
 
-    void WindowsControl() {
+    void windowsControl() {
         // do not build something outside the tileMap
         bool preventBuild = false;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -91,14 +97,11 @@ public class TileMapMouse : MonoBehaviour {
         bool preventBuild = false;
 
         // count touches of input
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Moved)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                RaycastHit hitInfo;
-
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+            RaycastHit hitInfo;
                 if (GetComponent<Collider>().Raycast(ray, out hitInfo, Mathf.Infinity))
                 {
                     // get coordinates of tile 
