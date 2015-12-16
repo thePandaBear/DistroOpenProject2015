@@ -254,7 +254,9 @@ public class GameManager : MonoBehaviour {
         // nr of lives left
         GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
         // amount of gold left
-        GUI.Label(new Rect(10, 50, buttonWidth / 2, buttonHeight), "Gold: " + goldAvailable.ToString(), labelFont);
+        GUI.Label(new Rect(10, 10 + (int)(width / 50 * 1.5), buttonWidth / 2, buttonHeight), "Gold: " + goldAvailable.ToString(), labelFont);
+
+        // button to improve towers for gold
 
         if (gameState == GameState.Lost) {
             GUI.Label(new Rect(10, 100, buttonWidth/2, buttonHeight), "Game Over", labelFont);
