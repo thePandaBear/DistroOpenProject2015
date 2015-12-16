@@ -32,7 +32,9 @@ public class TileMapMouse : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        // do not build something outside the tileMap
         bool preventBuild = false;
+
 		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 		RaycastHit hitInfo;
 		
@@ -40,7 +42,7 @@ public class TileMapMouse : MonoBehaviour {
             // get coordinates of tile 
             int x = Mathf.FloorToInt( hitInfo.point.x / _tileMap.tileSize);
 			int y = Mathf.FloorToInt( hitInfo.point.y / _tileMap.tileSize);
-			Debug.Log ("Tile: " + x + ", " + y);
+			//Debug.Log ("Tile: " + x + ", " + y);
 			
 			currentTileCoord.x = x;
 			currentTileCoord.y = y;
@@ -52,7 +54,7 @@ public class TileMapMouse : MonoBehaviour {
 		}
 		
 		if(Input.GetMouseButtonDown(0)){
-			Debug.Log ("Click!");
+			//Debug.Log ("Click!");
 
             //check if tile is free and not on path
             if (!mapData.checkIsPath((int)currentTileCoord.x, (int)currentTileCoord.y) && !mapData.checkForTower((int)currentTileCoord.x, (int)currentTileCoord.y) && !preventBuild) {

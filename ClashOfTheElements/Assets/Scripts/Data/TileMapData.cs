@@ -66,7 +66,7 @@ public class TileMapData: MonoBehaviour {
         go = GameObject.Find("GameManager");
         gameManagerScript = go.GetComponent<GameManager>();
         
-        Debug.Log("ITs not null");
+     //   Debug.Log("ITs not null");
        
 
         // Construct Data map with Tiles from XML 
@@ -83,7 +83,7 @@ public class TileMapData: MonoBehaviour {
         if (gameManagerScript.getWaypoints() != null) {
             List<Vector2> wayPointsList = gameManagerScript.getWaypoints();
             // add path to tile 
-            Debug.Log("Starting Pathing");
+        //    Debug.Log("Starting Pathing");
             int mini;
             int maxi;
             for (int i = 0; i < wayPointsList.Count - 1; i++)
@@ -116,7 +116,7 @@ public class TileMapData: MonoBehaviour {
         }
     }
  
-    public int GetTileAt(int x, int y)
+    public int GetTileID(int x, int y)
     {
         return map_tiles[x, y].getGraphicID();
     }

@@ -10,7 +10,7 @@ public class TileMapVisual : MonoBehaviour {
     // amount of tiles 
 	public int size_x;
 	public int size_y;
-	public float tileSize = 1.0f;
+    public float tileSize = 1.0f;
 
 
     // Texture for Tiles
@@ -20,11 +20,6 @@ public class TileMapVisual : MonoBehaviour {
     // Tile Data to acces Data of map
     TileMapData mapData;
 
-    // returns mapdata 
-    public TileMapData getMapData() {
-        return mapData;
-    } 
-    
     // Use this for initialization
     void Start () {
 		BuildMesh();
@@ -66,7 +61,7 @@ public class TileMapVisual : MonoBehaviour {
         // set texture for one tile 
         for (int y = 0; y < size_y; y++) {
             for(int x = 0; x < size_x; x++){
-                Color[] p = tiles[mapData.GetTileAt(x,y)];
+                Color[] p = tiles[mapData.GetTileID(x,y)];
                 texture.SetPixels(x*tileResolution, y*tileResolution, tileResolution, tileResolution, p);
            
             }
@@ -79,7 +74,7 @@ public class TileMapVisual : MonoBehaviour {
         MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
         mesh_renderer.sharedMaterials[0].mainTexture = texture; 
 
-        Debug.Log("Done Texture!");
+      //  Debug.Log("Done Texture!");
     } 
 
 	public void BuildMesh() {
@@ -106,7 +101,7 @@ public class TileMapVisual : MonoBehaviour {
 				uv[ y * vsize_x + x ] = new Vector2( (float)x / size_x, (float)y / size_y );
 			}
 		}
-        	Debug.Log ("Done Verts!");
+        	//Debug.Log ("Done Verts!");
         // local variables for the loop initialized with 0
         int squareIndex = 0;
         int triOffset = 0;
@@ -130,7 +125,7 @@ public class TileMapVisual : MonoBehaviour {
 			}
 		}
 		
-		Debug.Log ("Done Triangles!");
+		//Debug.Log ("Done Triangles!");
 		
 		// Create a new Mesh and populate with the data
 		Mesh mesh = new Mesh();
@@ -146,10 +141,14 @@ public class TileMapVisual : MonoBehaviour {
 		mesh_filter.mesh = mesh;
 		mesh_collider.sharedMesh = mesh;
 
-        Debug.Log ("Done Mesh!");
+        //Debug.Log ("Done Mesh!");
 
         BuildTexture();	
 	}
-	
-	
+
+    // returns mapdata 
+    public TileMapData getMapData()
+    {
+        return mapData;
+    }
 }
