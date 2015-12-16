@@ -55,7 +55,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  Speed: 5
+  Speed: 2
+  gameManager: {fileID: 0}
 --- !u!212 &21218672
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -93,7 +94,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: Speed
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: health

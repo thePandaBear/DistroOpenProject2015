@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class JoinScreen : MonoBehaviour {
 
     public Vector2 scrollPosition = Vector2.zero;
-    string text
+    string text;
 
     // list for servers
     private List<string> serverList;

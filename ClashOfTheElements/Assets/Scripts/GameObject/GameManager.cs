@@ -58,14 +58,17 @@ public class GameManager : MonoBehaviour {
     // bounty for killing monster
     public int monsterReward;
 
+    // the index of the current round
+    public int roundNumber = 0;
+
     // the current state of the game
     public GameState gameState;
-	
-	// a bool to check if the game already finished
-	public bool gameFinished;
-	
-	// initialization method
-	void Start () {
+
+    // a bool to check if a round has been launched completely
+    public bool finishedSpawning;
+
+    // initialization method
+    void Start () {
 
         Debug.Log("Starting");
 		
@@ -88,9 +91,9 @@ public class GameManager : MonoBehaviour {
 		
 		// start new round
 		executeChecks();
-		
-		// set game to running
-		gameFinished = false;
+
+        // nothing spawned yet
+        finishedSpawning = true;
 
         // add event handler to monster
         Monster.OnMonsterDeath += collectGold;
@@ -113,10 +116,10 @@ public class GameManager : MonoBehaviour {
 				StopCoroutine(newRound());
 				destroyAllMonsters();
 				gameState = GameState.Lost;
-			} else if (gameFinished && monsterList.Where(x => x != null).Count() == 0) {
-				destroyAllMonsters();
-				gameState = GameState.Won;
-			}
+			} else if (finishedSpawning && monsterList.Where(x => x != null).Count() == 0) {
+                    // player defeated all monsters in current round
+                    executeChecks();
+                }
 			break;
 		case GameState.Won:
 			if (Input.GetMouseButtonUp(0)) {
@@ -166,12 +169,13 @@ public class GameManager : MonoBehaviour {
 		
 		goldAvailable = levelData.gold;
 	}
-	
-	protected void executeChecks() {
-        if(!gameFinished)
-		    StartCoroutine(newRound());
-		gameFinished = true;
-	}
+
+    protected void executeChecks() {
+        if (finishedSpawning) {
+            StartCoroutine(newRound());
+            finishedSpawning = false;
+        }
+    }
 
     protected void destroyAllMonsters() {
 		//get all the enemies
@@ -182,38 +186,39 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	protected IEnumerator newRound() {
-		
-		// player has 2 seconds to do something.
-		yield return new WaitForSeconds(5f);
-		
-		// create new monsters
-		int difficulty = PlayerPrefs.GetInt ("difficulty");
-		if (difficulty == 0) {
-			difficulty = 1;
-		}
-		
-		
-		// create monsters endless
-		for (int n = 0; n > -1 && !gameFinished && gameState != GameState.Lost; n++) {
 
-            // never stop this wave! only 1 wave needed.
-			
-			// create a new monster.
-			GameObject monster = Instantiate(monsterPrefab, waypoints[0].transform.position, Quaternion.identity) as GameObject;
-			
-			
-			Monster monsterComponent = monster.GetComponent<Monster>();
+        // player has 5 seconds to do something.
+        yield return new WaitForSeconds(5f);
+
+        // create new monsters
+        int difficulty = PlayerPrefs.GetInt("difficulty");
+        if (difficulty == 0) {
+            difficulty = 1;
+        }
+
+        roundNumber++;
+
+        // create 10 monsters
+        for (int n = 0; n < 10 && gameState != GameState.Lost; n++) {
+
+            // create a new monster.
+            GameObject monster = Instantiate(monsterPrefab, waypoints[0].transform.position, Quaternion.identity) as GameObject;
+
+
+            Monster monsterComponent = monster.GetComponent<Monster>();
 
             // set health of new monster.
-            monsterComponent.health = 2 + (n / 5)*difficulty;
-		
-			// add monster to the monster list.
-			monsterList.Add(monster);
-			
-			// wait a short period of time until the next monster is spawned
-			yield return new WaitForSeconds(1f / (1));
-		}
-	}
+            monsterComponent.health = roundNumber * difficulty;
+
+            // add monster to the monster list.
+            monsterList.Add(monster);
+
+            // wait a short period of time until the next monster is spawned
+            yield return new WaitForSeconds(0.75f / (1));
+        }
+
+        finishedSpawning = true;
+    }
 	
 	public void doDamage() {
 		if (nOfLives <= 1){

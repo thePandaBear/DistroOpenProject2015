@@ -37,7 +37,7 @@ public class LobbyScreen : GameManager {
         executeChecks();
 
         // set game to running
-        gameFinished = false;
+        finishedSpawning = false;
 
         // add event handler to monster
         Monster.OnMonsterDeath += collectGold;
@@ -70,7 +70,7 @@ public class LobbyScreen : GameManager {
                     destroyAllMonsters();
                     gameState = GameState.Lost;
                 }
-                else if (gameFinished && monsterList.Where(x => x != null).Count() == 0)
+                else if (finishedSpawning && monsterList.Where(x => x != null).Count() == 0)
                 {
                     destroyAllMonsters();
                     gameState = GameState.Won;
