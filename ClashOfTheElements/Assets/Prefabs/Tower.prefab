@@ -42,7 +42,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 0}
   fireRate: .5
-  range: 5
+  range: 2
 --- !u!212 &21234464
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -88,7 +88,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: range
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
