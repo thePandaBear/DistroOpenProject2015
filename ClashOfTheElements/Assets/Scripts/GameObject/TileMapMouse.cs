@@ -95,13 +95,12 @@ public class TileMapMouse : MonoBehaviour {
 
 
         bool preventBuild = false;
-
         // count touches of input
-        if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
-        {
-            Touch touch = Input.GetTouch(0);
-            Ray ray = Camera.main.ScreenPointToRay(touch.position);
-            RaycastHit hitInfo;
+            if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                RaycastHit hitInfo;
                 if (GetComponent<Collider>().Raycast(ray, out hitInfo, Mathf.Infinity))
                 {
                     // get coordinates of tile 
@@ -118,28 +117,26 @@ public class TileMapMouse : MonoBehaviour {
                 {
                     preventBuild = true;
                 }
+            }
+            // we removed finger
+            if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                //Debug.Log ("Click!");
 
-                if (touch.phase == TouchPhase.Ended)
+                //check if tile is free and not on path
+                if (!mapData.checkIsPath((int)currentTileCoord.x, (int)currentTileCoord.y) && !mapData.checkForTower((int)currentTileCoord.x, (int)currentTileCoord.y) && !preventBuild)
                 {
-                    //Debug.Log ("Click!");
 
-                    //check if tile is free and not on path
-                    if (!mapData.checkIsPath((int)currentTileCoord.x, (int)currentTileCoord.y) && !mapData.checkForTower((int)currentTileCoord.x, (int)currentTileCoord.y) && !preventBuild)
+                    //check if enough gold is available and if so pay for the tower
+                    if (gameManager.payForTower())
                     {
-
-                        //check if enough gold is available and if so pay for the tower
-                        if (gameManager.payForTower())
-                        {
-                            //update TileMapData
-                            mapData.setTowerBool((int)currentTileCoord.x, (int)currentTileCoord.y, true);
-                            //build Tower
-                            Tower t = Instantiate(towerPrefab);
-                            t.transform.position = currentTileCoord + tileCenterOffset;
-                        }
+                        //update TileMapData
+                        mapData.setTowerBool((int)currentTileCoord.x, (int)currentTileCoord.y, true);
+                        //build Tower
+                        Tower t = Instantiate(towerPrefab);
+                        t.transform.position = currentTileCoord + tileCenterOffset;
                     }
                 }
-            }
         }
     }
-
 }
