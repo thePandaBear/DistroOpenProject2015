@@ -50,19 +50,13 @@ public class Monster : MonoBehaviour {
     void RemoveAndDestroy() {
         //remove it from the enemy list
         GameManager.Instance.monsterList.Remove(this.gameObject);
-        nView.RPC("removeMonster", RPCMode.OthersBuffered, this.gameObject);
         Network.Destroy(this.gameObject);
 
         //inform game manager of death
         if (OnMonsterDeath != null)
             OnMonsterDeath();
     }
-
-    [RPC]
-    public void removeMonster(GameObject monster)
-    {
-        GameManager.Instance.monsterList.Remove(monster);
-    }
+    
 
     void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.tag == "Arrow") {//if we're hit by an arrow

@@ -146,16 +146,7 @@ public class GameManager : MonoBehaviour {
 			break;
 		}
 	}
-	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info) {
-		int gold = 0;
-		if (stream.isWriting) {
-			gold = goldAvailable;
-			stream.Serialize(ref gold);
-		} else {
-			stream.Serialize(ref gold);
-			gold = goldAvailable;
-		}
-	}
+
 	protected void initLevelFromXml() {
 		
 		// create gameobject for each waypoint
@@ -258,7 +249,6 @@ public class GameManager : MonoBehaviour {
 
 				// add monster to the monster list.
 				monsterList.Add (monster);
-                nView.RPC("addMonsterRemote", RPCMode.OthersBuffered, monster);
 
 				// wait a short period of time until the next monster is spawned
 				yield return new WaitForSeconds (0.75f / (1));
@@ -266,12 +256,6 @@ public class GameManager : MonoBehaviour {
 
 			finishedSpawning = true;
 		}
-    }
-
-    [RPC]
-    public void addMonsterRemote(GameObject monster)
-    {
-        monsterList.Add(monster);
     }
 	
 	public void doDamage() {
@@ -292,8 +276,8 @@ public class GameManager : MonoBehaviour {
 	}
 
     public Boolean payForTower() {
-        nView.RPC("payForTowerRemote", RPCMode.OthersBuffered);
-        if(goldAvailable>=towerCost) {
+            nView.RPC("payForTowerRemote", RPCMode.OthersBuffered);
+        if (goldAvailable>=towerCost) {
             goldAvailable -= towerCost;
             return true;
         } else {
@@ -342,7 +326,8 @@ public class GameManager : MonoBehaviour {
 
     // method for monsterDeath event
     protected void collectGold() {
-        nView.RPC("collectGoldRemote", RPCMode.OthersBuffered);
+        if(Network.isServer)
+            nView.RPC("collectGoldRemote", RPCMode.OthersBuffered);
         goldAvailable += monsterReward;
     }
 
