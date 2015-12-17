@@ -1,10 +1,19 @@
 fileFormatVersion: 2
 guid: 6393b2de7c72b1240899dcabd8b75b65
-timeCreated: 1450366112
+timeCreated: 1450394785
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playerCastle: {instanceID: 0}
+  - monsterPrefab1: {instanceID: 0}
+  - monsterPrefab2: {instanceID: 0}
+  - monsterPrefab3: {instanceID: 0}
+  - monsterPrefab4: {instanceID: 0}
+  - castlePrefab: {instanceID: 0}
+  - waypointsParent: {instanceID: 0}
+  - heart: {fileID: 2800000, guid: f446bfd1549b66b4eab5f3913f793872, type: 3}
+  - coin: {fileID: 2800000, guid: e2c9ab7d1bb9d83468761e1e28641ed4, type: 3}
   executionOrder: -100
   icon: {instanceID: 0}
   userData: 

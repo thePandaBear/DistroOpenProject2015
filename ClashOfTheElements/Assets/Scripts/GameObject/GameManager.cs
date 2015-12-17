@@ -346,6 +346,9 @@ public class GameManager : MonoBehaviour {
         goldAvailable += monsterReward;
     }
 
+    public Texture2D heart;
+    public Texture2D coin;
+
     void OnGUI(){
         int width = Screen.width;
         int height = Screen.height;
@@ -359,6 +362,9 @@ public class GameManager : MonoBehaviour {
         buttonFont.fontSize = width/30;
         GUIStyle buttonFontSmall = new GUIStyle("button");
         buttonFontSmall.fontSize = width / 60;
+
+        GUI.DrawTexture(new Rect(10, 10, buttonHeight * 0.6f, buttonHeight * 0.6f), heart);
+        GUI.DrawTexture(new Rect(10, 10 + (int)(width / 50 * 1.5), buttonHeight * 0.6f, buttonHeight * 0.6f), coin);
 
         // nr of lives left
         GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "    " + nOfLives.ToString(), labelFont);
