@@ -38,8 +38,9 @@ public class JoinScreen : MonoBehaviour {
 
 	//request the HostList from MasterServer
 	public void getHostList(){
-		MasterServer.RequestHostList ("clashofelements");
-	}
+		MasterServer.RequestHostList ("ClashOfTheElements");
+        hostList = MasterServer.PollHostList();
+    }
 	
     void OnGUI() {
 
@@ -99,9 +100,7 @@ public class JoinScreen : MonoBehaviour {
         text = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth / 2, buttonHeight), text, textFont);
 
         if (GUI.Button(new Rect(buttonX + buttonWidth/2 + 6, buttonY, buttonWidth / 2-6, buttonHeight), "Search", buttonFont)) {
-           NetworkManager.Instance.SearchServers();
-        	 hostList = NetworkManager.Instance.getServerList();
-			getHostList();
+            getHostList();
         }
 
         // get scroll view size
