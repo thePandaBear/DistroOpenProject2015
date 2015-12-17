@@ -14,7 +14,13 @@ public class TileMapMouse : MonoBehaviour {
 	//private Transform selectionCube;
 	public GameObject selectionCubeGameObject; 
     // tower prefeb
-    public Tower towerPrefab;
+    public Tower towerPrefab1;
+	public Tower towerPrefab2;
+
+	public Tower towerPrefab3;
+
+	public Tower towerPrefab4;
+
 
 
     //offset to hit center of tile
@@ -84,7 +90,7 @@ public class TileMapMouse : MonoBehaviour {
                     //update TileMapData
                     mapData.setTowerBool((int)currentTileCoord.x, (int)currentTileCoord.y, true);
                     //build Tower
-					Tower t = Network.Instantiate(towerPrefab, currentTileCoord + tileCenterOffset, Quaternion.identity, 0) as Tower;
+					Tower t = Network.Instantiate(towerPrefab1, currentTileCoord + tileCenterOffset, Quaternion.identity, 0) as Tower;
 				}
             }
         }
@@ -137,8 +143,7 @@ public class TileMapMouse : MonoBehaviour {
                         //update TileMapData
                         mapData.setTowerBool((int)currentTileCoord.x, (int)currentTileCoord.y, true);
                         //build Tower
-                        Tower t = Instantiate(towerPrefab);
-                        t.transform.position = currentTileCoord + tileCenterOffset;
+						Tower t = Network.Instantiate(towerPrefab1, currentTileCoord + tileCenterOffset, Quaternion.identity, 0) as Tower;
                     }
                 }
         }
