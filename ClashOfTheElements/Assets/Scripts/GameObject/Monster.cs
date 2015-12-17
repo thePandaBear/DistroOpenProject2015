@@ -49,7 +49,7 @@ public class Monster : MonoBehaviour {
     void RemoveAndDestroy() {
         //remove it from the enemy list
         GameManager.Instance.monsterList.Remove(this.gameObject);
-        Destroy(this.gameObject);
+        Network.Destroy(this.gameObject);
 
         //inform game manager of death
         if (OnMonsterDeath != null)

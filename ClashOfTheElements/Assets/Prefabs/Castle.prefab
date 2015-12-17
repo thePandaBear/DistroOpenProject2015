@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 440546}
   - 212: {fileID: 21259954}
   - 114: {fileID: 11434274}
+  - 148: {fileID: 14826202}
   m_Layer: 0
   m_Name: Castle
   m_TagString: Untagged
@@ -40,6 +41,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b3332bfa345b6419fe6b66fecfe8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!148 &14826202
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152144}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 440546}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21259954
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -58,9 +71,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}

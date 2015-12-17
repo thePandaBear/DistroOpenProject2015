@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour {
 		
 		// find game objects with the name "Waypoints"
 		waypointsParent = new GameObject();
+		waypointsParent.name = "Waypoints";
 		
 		// initialize the level using the given xml level file
 		initLevelFromXml();
@@ -173,6 +174,7 @@ public class GameManager : MonoBehaviour {
 		
 		goldAvailable = levelData.gold;
 	}
+	
 
     protected void executeChecks() {
         if (finishedSpawning) {
@@ -190,38 +192,40 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	protected IEnumerator newRound() {
+		if (Network.isServer) {
+			// player has 5 seconds to do something.
+			yield return new WaitForSeconds (5f);
 
-        // player has 5 seconds to do something.
-        yield return new WaitForSeconds(5f);
+			// create new monsters
+			int difficulty = PlayerPrefs.GetInt ("difficulty");
+			if (difficulty == 0) {
+				difficulty = 1;
+			}
 
-        // create new monsters
-        int difficulty = PlayerPrefs.GetInt("difficulty");
-        if (difficulty == 0) {
-            difficulty = 1;
-        }
+			roundNumber++;
 
-        roundNumber++;
+			// create 10 monsters
+			for (int n = 0; n < 10 && gameState != GameState.Lost; n++) {
 
-        // create 10 monsters
-        for (int n = 0; n < 10 && gameState != GameState.Lost; n++) {
+				// create a new monster.
+				if (waypoints == null) {
+					Debug.Log ("xxxx");
+				}
+				GameObject monster = Network.Instantiate (monsterPrefab, waypoints [0].transform.position, Quaternion.identity, 0) as GameObject;
+				Monster monsterComponent = monster.GetComponent<Monster> ();
 
-            // create a new monster.
-            GameObject monster = Instantiate(monsterPrefab, waypoints[0].transform.position, Quaternion.identity) as GameObject;
+				// set health of new monster.
+				monsterComponent.health = roundNumber * difficulty;
 
+				// add monster to the monster list.
+				monsterList.Add (monster);
 
-            Monster monsterComponent = monster.GetComponent<Monster>();
+				// wait a short period of time until the next monster is spawned
+				yield return new WaitForSeconds (0.75f / (1));
+			}
 
-            // set health of new monster.
-            monsterComponent.health = roundNumber * difficulty;
-
-            // add monster to the monster list.
-            monsterList.Add(monster);
-
-            // wait a short period of time until the next monster is spawned
-            yield return new WaitForSeconds(0.75f / (1));
-        }
-
-        finishedSpawning = true;
+			finishedSpawning = true;
+		}
     }
 	
 	public void doDamage() {

@@ -44,9 +44,7 @@ public class NetworkManager : MonoBehaviour {
 
 	void OnLevelWasLoaded(int index) {
 		if (index == 0) {
-			if(Network.isServer){
 			SpawnGame ();
-			}
 		}
 	}
 
@@ -81,7 +79,7 @@ public class NetworkManager : MonoBehaviour {
     }
 
 	private void SpawnGame(){
-		Network.Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
+		Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity);
 		Network.Instantiate (planePrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
 	}
 

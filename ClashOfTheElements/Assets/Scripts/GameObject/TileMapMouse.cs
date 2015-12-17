@@ -83,8 +83,8 @@ public class TileMapMouse : MonoBehaviour {
                     //update TileMapData
                     mapData.setTowerBool((int)currentTileCoord.x, (int)currentTileCoord.y, true);
                     //build Tower
-                    Tower t = Instantiate(towerPrefab);
-                    t.transform.position = currentTileCoord + tileCenterOffset;
+					Tower t = Network.Instantiate(towerPrefab, currentTileCoord + tileCenterOffset, Quaternion.identity, 0) as Tower;
+                  
                 }
             }
         }

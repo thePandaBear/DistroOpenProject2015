@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 422594}
   - 212: {fileID: 21234464}
   - 114: {fileID: 11403698}
+  - 148: {fileID: 14880612}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -40,10 +41,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1c5269a6c02ee4694f11ebe5bd7e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
+  arrowPrefab: {fileID: 125860, guid: 94da320383df7024dafcc6d1fb8a6b96, type: 2}
   fireRate: .5
   range: 2
   gameManager: {fileID: 0}
+--- !u!148 &14880612
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158576}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 422594}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21234464
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -62,9 +75,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -96,6 +107,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 349ef6b5d5398884fa15ee8213a47ed9,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 125860, guid: 94da320383df7024dafcc6d1fb8a6b96, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 158576}

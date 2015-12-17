@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11429532}
   - 61: {fileID: 6182808}
   - 95: {fileID: 9548500}
+  - 148: {fileID: 14821590}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -75,6 +76,18 @@ MonoBehaviour:
   health: 3
   Speed: 2
   gameManager: {fileID: 0}
+--- !u!148 &14821590
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121922}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 423516}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21218672
 SpriteRenderer:
   m_ObjectHideFlags: 1
