@@ -76,7 +76,6 @@ public class NetworkManager : MonoBehaviour {
 
     void OnConnectedToServer()
     {
-		//Application.LoadLevel("InGame");
         Debug.Log("Server Joined");
     }
 

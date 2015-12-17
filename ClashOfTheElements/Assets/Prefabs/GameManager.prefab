@@ -48,11 +48,16 @@ MonoBehaviour:
   fieldOffset: {x: .5, y: .5}
   monsterList: []
   playerCastle: {fileID: 0}
-  monsterPrefab: {fileID: 121922, guid: a704f794b2ac4ee4f80de4e9ab78709d, type: 2}
+  NrOfDiffMonster: 4
+  monsterPrefab1: {fileID: 121922, guid: 650919aa2448ad54ab38ab894aac711c, type: 2}
+  monsterPrefab2: {fileID: 121922, guid: f7431d5ed899cdd489613bff997bcb39, type: 2}
+  monsterPrefab3: {fileID: 121922, guid: d306b2b96231f9745a4c7a94e72b968f, type: 2}
+  monsterPrefab4: {fileID: 121922, guid: a57f9e2359bfb8246a7d9f138a11a09a, type: 2}
   castlePrefab: {fileID: 152144, guid: 364e968739be07b41b56ce5bf1dfa0b2, type: 2}
   waypoints: []
   waypointsParent: {fileID: 0}
-  nOfLives: 10
+  goldAvailable: 0
+  nOfLives: 20
   towerCost: 5
   monsterReward: 1
   roundNumber: 0
@@ -97,6 +102,30 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_ServerOnly
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: NrOfDiffMonster
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: monsterPrefab1
+      value: 
+      objectReference: {fileID: 121922, guid: 650919aa2448ad54ab38ab894aac711c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: monsterPrefab2
+      value: 
+      objectReference: {fileID: 121922, guid: f7431d5ed899cdd489613bff997bcb39, type: 2}
+    - target: {fileID: 0}
+      propertyPath: monsterPrefab3
+      value: 
+      objectReference: {fileID: 121922, guid: d306b2b96231f9745a4c7a94e72b968f, type: 2}
+    - target: {fileID: 0}
+      propertyPath: monsterPrefab4
+      value: 
+      objectReference: {fileID: 121922, guid: a57f9e2359bfb8246a7d9f138a11a09a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: nOfLives
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

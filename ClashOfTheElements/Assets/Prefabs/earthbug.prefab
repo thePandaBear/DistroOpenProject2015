@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11429532}
   - 61: {fileID: 6182808}
   - 95: {fileID: 9548500}
+  - 148: {fileID: 14863334}
   m_Layer: 0
   m_Name: earthbug
   m_TagString: Untagged
@@ -75,6 +76,18 @@ MonoBehaviour:
   health: 3
   Speed: 2
   gameManager: {fileID: 0}
+--- !u!148 &14863334
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121922}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 423516}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21218672
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -93,7 +106,9 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}

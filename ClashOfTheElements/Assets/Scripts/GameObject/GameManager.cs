@@ -53,8 +53,8 @@ public class GameManager : MonoBehaviour {
 	
 	/** parameters for the gameplay **/
 	// currently available gold
-	public int goldAvailable { get; protected set; }
 
+	public int goldAvailable; 
     // number of lives available to the player
 	public int nOfLives = 10;
 
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour {
         // add event handler to monster
         Monster.OnMonsterDeath += collectGold;
     }
-	
+
 	// update the game.
 	void Update () {
 
@@ -141,7 +141,16 @@ public class GameManager : MonoBehaviour {
 			break;
 		}
 	}
-	
+	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info) {
+		int gold = 0;
+		if (stream.isWriting) {
+			gold = goldAvailable;
+			stream.Serialize(ref gold);
+		} else {
+			stream.Serialize(ref gold);
+			gold = goldAvailable;
+		}
+	}
 	protected void initLevelFromXml() {
 		
 		// create gameobject for each waypoint
