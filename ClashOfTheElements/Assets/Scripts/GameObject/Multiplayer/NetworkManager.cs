@@ -9,6 +9,7 @@ public class NetworkManager : MonoBehaviour {
 	public static NetworkManager Instance;
     private HostData[] hostList;
 	public GameObject gameManPrefab; 
+	public GameObject planePrefab; 
 
 	//TODO: display some message if server couldnt be created or server couldnt be joined 
 
@@ -81,6 +82,7 @@ public class NetworkManager : MonoBehaviour {
 
 	private void SpawnGame(){
 		Network.Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
+		Network.Instantiate (planePrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
 	}
 
 	void OnPlayerConnected(NetworkPlayer player) {

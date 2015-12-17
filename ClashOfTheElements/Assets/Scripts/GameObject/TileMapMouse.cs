@@ -11,8 +11,8 @@ public class TileMapMouse : MonoBehaviour {
 	Vector2 currentTileCoord;
 	
     // object for highlighting cube 
-	public Transform selectionCube;
-
+	//private Transform selectionCube;
+	public GameObject selectionCubeGameObject; 
     // tower prefeb
     public Tower towerPrefab;
 
@@ -27,6 +27,7 @@ public class TileMapMouse : MonoBehaviour {
     private bool isAndroid;
 
 	void Start() {
+		selectionCubeGameObject = GameObject.Find ("TileSelectionIndicator");
 		_tileMap = GetComponent<TileMapVisual>();
         mapData = _tileMap.getMapData();
         gameManager = GameObject.Find("GameManager(Clone)").GetComponent<GameManager>();
@@ -60,7 +61,8 @@ public class TileMapMouse : MonoBehaviour {
             currentTileCoord.x = x;
             currentTileCoord.y = y;
 
-            selectionCube.transform.position = currentTileCoord;
+           // selectionCube.transform.position = currentTileCoord;
+			selectionCubeGameObject.transform.position = currentTileCoord;
         }
         else
         {
@@ -111,7 +113,9 @@ public class TileMapMouse : MonoBehaviour {
                     currentTileCoord.x = x;
                     currentTileCoord.y = y;
 
-                    selectionCube.transform.position = currentTileCoord;
+                  //  selectionCube.transform.position = currentTileCoord;
+				selectionCubeGameObject.transform.position = currentTileCoord;
+					
                 }
                 else
                 {
