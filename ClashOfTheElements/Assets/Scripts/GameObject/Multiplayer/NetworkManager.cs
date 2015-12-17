@@ -58,10 +58,9 @@ public class NetworkManager : MonoBehaviour {
         return hostList;
     }
 
-    private void JoinServer(HostData hostData)
+    public void JoinServer(HostData hostData)
     {
         Network.Connect(hostData);
-		Debug.Log ("server joined");
     }
 
     void OnConnectedToServer()

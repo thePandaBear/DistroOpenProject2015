@@ -100,7 +100,6 @@ public class JoinScreen : MonoBehaviour {
         text = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth / 2, buttonHeight), text, textFont);
 
         if (GUI.Button(new Rect(buttonX + buttonWidth/2 + 6, buttonY, buttonWidth / 2-6, buttonHeight), "Search", buttonFont)) {
-
             getHostList();
         }
 
@@ -114,7 +113,7 @@ public class JoinScreen : MonoBehaviour {
             for (int i = 0; i < hostList.Length; i++)
             {
                 if(GUI.Button(new Rect(10, 10 + (int)(width / 50 * 1.5) * i, buttonWidth / 5 * 4 - 20, 100), hostList[i].gameType, serverFont)) {
-                    Network.Connect(hostList[i]);
+                    NetworkManager.Instance.JoinServer(hostList[i]);
                     Application.LoadLevel("InGame");
                 }
             }
