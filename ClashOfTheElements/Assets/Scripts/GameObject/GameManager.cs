@@ -313,6 +313,7 @@ public class GameManager : MonoBehaviour {
 
     public Boolean payForAttack() {
         if(goldAvailable >= attackAddCost) {
+            nView.RPC("payForAttackRemote", RPCMode.OthersBuffered);
             Debug.Log("Attack add Cost now: " + attackAddCost.ToString());
             goldAvailable -= attackAddCost;
             attackAddCost = attackAddCost * 2;
@@ -322,8 +323,16 @@ public class GameManager : MonoBehaviour {
             return false;
         }
     }
-	
-	public List<Vector2> getWaypoints() {
+
+    [RPC]
+    void payForAttackRemote()
+    {
+        goldAvailable -= rangeAddCost;
+        rangeAddCost = rangeAddCost * 2;
+        rangeAdd++;
+    }
+
+    public List<Vector2> getWaypoints() {
         if (levelData!= null)
         {
             return levelData.waypointList;

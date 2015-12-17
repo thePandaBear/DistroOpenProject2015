@@ -2,13 +2,23 @@ using UnityEngine;
 using System.Collections;
 
 public class LoginScreen : MonoBehaviour {
-	
-	void Start () {
-		
+
+    public string number;
+    public int nr;
+
+
+    void Start () {
+        number = "2";
 	}
 	
 	void Update () {
-		
+		if(!number.Equals(""))
+        {
+            nr = int.Parse(number);
+            if(nr <= 0) {
+                nr = 1;
+            }
+        }
 	}
 
 	void OnGUI(){
@@ -33,16 +43,18 @@ public class LoginScreen : MonoBehaviour {
 		GUIStyle labelFont = new GUIStyle ("label");
 		labelFont.fontSize = width / 30;
 
-		// create gui box
-		GUI.Box (new Rect (0, 0, width, height), "");
+        GUIStyle textFont = new GUIStyle(GUI.skin.textField);
+        textFont.fontSize = width / 30;
+
+        // create gui box
+        GUI.Box (new Rect (0, 0, width, height), "");
 
 		GUI.Label (new Rect (buttonX, buttonY/2, buttonWidth, buttonHeight), "Menu", labelFont);
 
-		if(GUI.Button(new Rect(buttonX,buttonY,buttonWidth,buttonHeight), "Start Singleplayer", buttonFont)){
-			NetworkManager.Instance.SpawnGame();
-			Application.LoadLevel("InGame");
-		}
-		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Host Multiplayer", buttonFont)){
+        number = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), number, textFont);
+
+        if (GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "Host Multiplayer", buttonFont)){
+            PlayerPrefs.SetInt("nr", nr);
 			Application.LoadLevel("HostMultiplayer");
 		}
 		if(GUI.Button(new Rect(buttonX,buttonY*3,buttonWidth,buttonHeight), "Join Multiplayer", buttonFont)){
