@@ -1,12 +1,13 @@
 fileFormatVersion: 2
-guid: 443e5452ed1796e4699de9831c7b493b
+guid: 4afa2c4ad2dbc6541b889440230ebe0e
+timeCreated: 1450388807
+licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: badger_01
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -25,10 +26,10 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
-  maxTextureSize: 1024
+  textureFormat: -1
+  maxTextureSize: 2048
   textureSettings:
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -1
     wrapMode: 1
