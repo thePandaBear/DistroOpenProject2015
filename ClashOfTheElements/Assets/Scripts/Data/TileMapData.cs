@@ -68,7 +68,7 @@ public class TileMapData: MonoBehaviour {
         map_tiles = new DTile[size_x, size_y];
 
         // gameManager Stuff
-        go = GameObject.Find("GameManager");
+        go = GameObject.Find("GameManager(Clone)");
         gameManagerScript = go.GetComponent<GameManager>();
         
      //   Debug.Log("ITs not null");

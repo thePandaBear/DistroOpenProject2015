@@ -16,7 +16,7 @@ public class Monster : MonoBehaviour {
 
 
     void Start() {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager(Clone)").GetComponent<GameManager>();
     }
 
     void Update () {

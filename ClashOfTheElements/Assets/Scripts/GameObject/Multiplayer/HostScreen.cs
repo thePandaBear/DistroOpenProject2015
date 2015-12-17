@@ -74,8 +74,8 @@ public class HostScreen : MonoBehaviour {
 				if(gamename != null && gamename.Length > 0) {
 					
                     PlayerPrefs.SetString("gamename", gamename);
-					NetworkManager.Instance.StartHost(gamename);
                     Application.LoadLevel("InGame");
+					NetworkManager.Instance.StartHost(gamename);
 
 				}else{
 					//TODO display some message

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
 	
 	void Awake() {
 		Instance = this;
+		DontDestroyOnLoad (this);
 	}
 
     // tower range control

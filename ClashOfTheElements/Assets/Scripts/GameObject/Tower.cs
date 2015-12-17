@@ -14,7 +14,7 @@ public class Tower : MonoBehaviour {
     public GameManager gameManager;
 
     void Start () {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager(Clone)").GetComponent<GameManager>();
         State = TowerState.Searching;
 	}
 

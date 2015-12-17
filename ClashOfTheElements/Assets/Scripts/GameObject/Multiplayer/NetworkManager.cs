@@ -39,9 +39,14 @@ public class NetworkManager : MonoBehaviour {
         MasterServer.RequestHostList("ClashOfTheElements");
     }
 
+	void OnLevelWasLoaded(int index) {
+		if (index == 0) {
+			SpawnGame ();
+		}
+	}
+
     void OnServerInitialized()
     {
-		SpawnGame ();	
         Debug.Log("Server Initializied");
     }
 
@@ -65,7 +70,6 @@ public class NetworkManager : MonoBehaviour {
 
     void OnConnectedToServer()
     {
-		SpawnGame ();
         Debug.Log("Server Joined");
     }
 

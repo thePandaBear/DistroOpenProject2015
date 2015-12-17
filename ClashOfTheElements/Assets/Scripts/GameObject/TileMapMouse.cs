@@ -29,7 +29,7 @@ public class TileMapMouse : MonoBehaviour {
 	void Start() {
 		_tileMap = GetComponent<TileMapVisual>();
         mapData = _tileMap.getMapData();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager(Clone)").GetComponent<GameManager>();
         // check for the runtime system 
         isAndroid = Application.platform == RuntimePlatform.Android;
         
