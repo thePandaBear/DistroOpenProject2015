@@ -245,7 +245,7 @@ public class GameManager : MonoBehaviour {
 				if (waypoints == null) {
 					Debug.Log ("xxxx");
 				}
-				GameObject monster = Network.Instantiate (currentMonster, waypoints [0].transform.position, Quaternion.identity, 0) as GameObject;
+				GameObject monster = Network.Instantiate (currentMonster, waypoints[0].transform.position, Quaternion.identity, 0) as GameObject;
 				Monster monsterComponent = monster.GetComponent<Monster> ();
 
 				// set health of new monster.

@@ -38,6 +38,7 @@ public class JoinScreen : MonoBehaviour {
     [RPC]
     void startGame()
     {
+		Debug.Log ("ccc");
         Application.LoadLevel("InGame");
         NetworkManager.Instance.SpawnGame();
     }
