@@ -30,7 +30,6 @@ public class JoinScreen : MonoBehaviour {
 			hostList = MasterServer.PollHostList();
 			for(int i = 0; i<hostList.Length; i++){
 				serverList.Add(hostList[i].gameName);
-				Debug.Log(hostList[i].gameName  + " xx");
 			}
 			MasterServer.ClearHostList();
 		}
@@ -40,6 +39,7 @@ public class JoinScreen : MonoBehaviour {
 	public void getHostList(){
 		MasterServer.RequestHostList ("ClashOfTheElements");
         hostList = MasterServer.PollHostList();
+		MasterServer.ClearHostList();
     }
 	
     void OnGUI() {

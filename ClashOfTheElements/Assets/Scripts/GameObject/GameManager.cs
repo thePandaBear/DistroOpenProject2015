@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour {
 		levelData = Util.parseXML();
 		
 		// find game objects with the name "Waypoints"
-		waypointsParent = GameObject.Find("Waypoints");
+		waypointsParent = new GameObject();
 		
 		// initialize the level using the given xml level file
 		initLevelFromXml();

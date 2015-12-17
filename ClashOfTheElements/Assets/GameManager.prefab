@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 450102}
   - 114: {fileID: 11431678}
   - 114: {fileID: 11484126}
-  - 148: {fileID: 14842888}
+  - 148: {fileID: 14846006}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ArrowPooler: {fileID: 0}
   ArrowPrefab: {fileID: 125860, guid: 94da320383df7024dafcc6d1fb8a6b96, type: 2}
---- !u!148 &14842888
+--- !u!148 &14846006
 NetworkView:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -89,7 +89,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 167470}

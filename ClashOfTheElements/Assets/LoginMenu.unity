@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManPrefab: {fileID: 167470, guid: 70c60cd82885a1c479e17306a6ec8c29, type: 2}
+  planePrefab: {fileID: 145878, guid: 6d80c2ec7791eb746ae4f1cc12ddffd8, type: 2}
 --- !u!4 &1272039365
 Transform:
   m_ObjectHideFlags: 0
