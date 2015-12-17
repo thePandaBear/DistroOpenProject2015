@@ -43,7 +43,9 @@ public class NetworkManager : MonoBehaviour {
 
 	void OnLevelWasLoaded(int index) {
 		if (index == 0) {
+			if(Network.isServer){
 			SpawnGame ();
+			}
 		}
 	}
 
