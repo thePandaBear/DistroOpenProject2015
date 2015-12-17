@@ -11,7 +11,7 @@ public class Arrow : MonoBehaviour {
 	private Transform target;
     
 	    void Start() {
-        //disable it after 5 seconds, whatever happens
+        //disable it after 5 seconds maximum
         Invoke("Disable", 5f);
     }
 
@@ -28,10 +28,9 @@ public class Arrow : MonoBehaviour {
 	}
 
     public void Disable() {
-        //if we are called from another gameobject,
-        //cancel the timed invoke
+        //this might get called from another object
         CancelInvoke();
-        //since we're pooling it, make it inactive instead of destroying it
+        //inactive due to pooler
         this.gameObject.SetActive(false);
     }
 

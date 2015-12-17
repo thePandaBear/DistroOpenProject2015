@@ -131,7 +131,9 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -188,10 +190,15 @@ MonoBehaviour:
   fieldOffset: {x: .5, y: .5}
   monsterList: []
   playerCastle: {fileID: 0}
-  monsterPrefab: {fileID: 121922, guid: a704f794b2ac4ee4f80de4e9ab78709d, type: 2}
+  NrOfDiffMonster: 0
+  monsterPrefab1: {fileID: 0}
+  monsterPrefab2: {fileID: 0}
+  monsterPrefab3: {fileID: 0}
+  monsterPrefab4: {fileID: 0}
   castlePrefab: {fileID: 152144, guid: 364e968739be07b41b56ce5bf1dfa0b2, type: 2}
   waypoints: []
   waypointsParent: {fileID: 0}
+  goldAvailable: 0
   nOfLives: 10
   towerCost: 5
   monsterReward: 1
@@ -301,8 +308,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d783bafb92143d54395aa4560ba0b241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionCube: {fileID: 252191508}
-  towerPrefab: {fileID: 11403698, guid: df293cdcb39f5df40bd043035e5ca08a, type: 2}
+  selectionCubeGameObject: {fileID: 0}
+  towerPrefab1: {fileID: 0}
+  towerPrefab2: {fileID: 0}
+  towerPrefab3: {fileID: 0}
+  towerPrefab4: {fileID: 0}
 --- !u!114 &413914627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +347,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -349,7 +361,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 413914625}
-  m_Mesh: {fileID: 1493313072}
+  m_Mesh: {fileID: 1433224311}
 --- !u!64 &413914630
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -361,7 +373,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 0
-  m_Mesh: {fileID: 1493313072}
+  m_Mesh: {fileID: 1433224311}
 --- !u!4 &413914631
 Transform:
   m_ObjectHideFlags: 0
@@ -401,6 +413,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2accfc566e7491242843eeff2f08c879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playersConnected: 0
+  serverStarted: 0
+  allowStart: 0
+  joined: 0
+  gameManPrefab: {fileID: 0}
+  planePrefab: {fileID: 0}
 --- !u!4 &458292396
 Transform:
   m_ObjectHideFlags: 0
@@ -462,7 +480,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -559,7 +577,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!43 &1493313072
+--- !u!43 &1433224311
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}

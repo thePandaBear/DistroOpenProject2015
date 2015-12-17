@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
 	public static Vector2 getWaypointPosition(int index) {
 		return Instance.waypoints[index].transform.position;
 	}
+
+    NetworkView nView;
 	
 	void Awake() {
 		Instance = this;
@@ -75,6 +77,9 @@ public class GameManager : MonoBehaviour {
 
     // initialization method
     void Start () {
+
+
+        nView = GetComponent<NetworkView>();
 
         Debug.Log("Starting");
 		
@@ -253,6 +258,7 @@ public class GameManager : MonoBehaviour {
 
 				// add monster to the monster list.
 				monsterList.Add (monster);
+                nView.RPC("addMonsterRemote", RPCMode.OthersBuffered, monster);
 
 				// wait a short period of time until the next monster is spawned
 				yield return new WaitForSeconds (0.75f / (1));
@@ -260,6 +266,12 @@ public class GameManager : MonoBehaviour {
 
 			finishedSpawning = true;
 		}
+    }
+
+    [RPC]
+    public void addMonsterRemote(GameObject monster)
+    {
+        monsterList.Add(monster);
     }
 	
 	public void doDamage() {
@@ -280,6 +292,7 @@ public class GameManager : MonoBehaviour {
 	}
 
     public Boolean payForTower() {
+        nView.RPC("payForTowerRemote", RPCMode.OthersBuffered);
         if(goldAvailable>=towerCost) {
             goldAvailable -= towerCost;
             return true;
@@ -297,6 +310,12 @@ public class GameManager : MonoBehaviour {
         } else {
             return false;
         }
+    }
+
+    [RPC]
+    void payForTowerRemote()
+    {
+        goldAvailable -= towerCost;
     }
 
     public Boolean payForAttack() {
@@ -323,7 +342,13 @@ public class GameManager : MonoBehaviour {
 
     // method for monsterDeath event
     protected void collectGold() {
-        Debug.Log("infinityyyyyyyyyyyy");
+        nView.RPC("collectGoldRemote", RPCMode.OthersBuffered);
+        goldAvailable += monsterReward;
+    }
+
+    [RPC]
+    void collectGoldRemote()
+    {
         goldAvailable += monsterReward;
     }
 
@@ -363,8 +388,8 @@ public class GameManager : MonoBehaviour {
         // button to improve towers for gold
 
         if (gameState == GameState.Lost) {
-            GUI.Label(new Rect(10, 100, buttonWidth/2, buttonHeight), "Game Over", labelFont);
-            if (GUI.Button(new Rect(10, 150, buttonWidth/2, buttonHeight), "Back", buttonFont))
+            GUI.Label(new Rect(10, 10 + (int)(width / 50 * 4.5), buttonWidth/2, buttonHeight), "Game Over", labelFont);
+            if (GUI.Button(new Rect(10, 10 + (int)(width / 50 * 6), buttonWidth/2, buttonHeight), "Back", buttonFont))
             {
                 Application.LoadLevel("LoginMenu");
             }

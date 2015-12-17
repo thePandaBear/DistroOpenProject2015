@@ -15,6 +15,8 @@ public class Tower : MonoBehaviour {
 
     void Start () {
         gameManager = GameObject.Find("GameManager(Clone)").GetComponent<GameManager>();
+
+        //There is no monster in range at the start
         State = TowerState.Searching;
 	}
 
@@ -41,10 +43,10 @@ public class Tower : MonoBehaviour {
             // check if target is still in range
             if (target != null && Vector3.Distance(transform.position, target.transform.position) < range + gameManager.rangeAdd) {
 
-                // enemy is in shooting range, execute attack
+                // shoot at it
                 attack();
             } else {
-                // enemy is no more in shooting range, change state to searching again
+                // enemy left range, search again
                 State = TowerState.Searching;
             }
         }
@@ -58,8 +60,10 @@ public class Tower : MonoBehaviour {
             // check if target is still in range
             if (target != null && target.activeSelf && Vector3.Distance(transform.position, target.transform.position) < range + gameManager.rangeAdd) {
                 // target is still in range
-                // create a new arrow to shoot
+                // grab a new arrow to shoot
                 GameObject go = ObjectPoolerManager.Instance.ArrowPooler.GetPooledObject();
+
+                // place it at tower position
                 go.transform.position = transform.position;
                 go.transform.rotation = transform.rotation;
 
