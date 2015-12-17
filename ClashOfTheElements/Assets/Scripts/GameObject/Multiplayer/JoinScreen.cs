@@ -41,12 +41,7 @@ public class JoinScreen : MonoBehaviour {
         }
     }
 
-    [RPC]
-    void startGame()
-    {
-        Debug.Log("started game");
-        Application.LoadLevel("InGame");
-    }
+    
 
     //request the HostList from MasterServer
     public void getHostList(){

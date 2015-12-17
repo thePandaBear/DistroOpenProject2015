@@ -7,7 +7,7 @@ public class Monster : MonoBehaviour {
     public int health;
     int nextWaypointIndex = 0;
     public float Speed;
-
+    NetworkView nView;
     public GameManager gameManager;
 
     // event that is called once monster dies
@@ -16,6 +16,7 @@ public class Monster : MonoBehaviour {
 
 
     void Start() {
+        nView = GetComponent<NetworkView>();
         gameManager = GameObject.Find("GameManager(Clone)").GetComponent<GameManager>();
     }
 
@@ -49,11 +50,18 @@ public class Monster : MonoBehaviour {
     void RemoveAndDestroy() {
         //remove it from the enemy list
         GameManager.Instance.monsterList.Remove(this.gameObject);
+        nView.RPC("removeMonster", RPCMode.OthersBuffered, this.gameObject);
         Network.Destroy(this.gameObject);
 
         //inform game manager of death
         if (OnMonsterDeath != null)
             OnMonsterDeath();
+    }
+
+    [RPC]
+    public void removeMonster(GameObject monster)
+    {
+        GameManager.Instance.monsterList.Remove(monster);
     }
 
     void OnCollisionEnter2D(Collision2D col) {

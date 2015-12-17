@@ -60,6 +60,7 @@ public class Tower : MonoBehaviour {
                 // target is still in range
                 // create a new arrow to shoot
                 GameObject go = ObjectPoolerManager.Instance.ArrowPooler.GetPooledObject();
+
                 go.transform.position = transform.position;
                 go.transform.rotation = transform.rotation;
 
