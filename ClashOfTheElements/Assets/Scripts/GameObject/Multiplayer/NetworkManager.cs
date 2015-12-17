@@ -82,4 +82,9 @@ public class NetworkManager : MonoBehaviour {
 	private void SpawnGame(){
 		Network.Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
 	}
+
+	void OnPlayerConnected(NetworkPlayer player) {
+		//TODO display this in game
+		Debug.Log("A Player connected");
+	}
 }
