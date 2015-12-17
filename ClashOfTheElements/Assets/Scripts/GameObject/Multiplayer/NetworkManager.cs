@@ -47,12 +47,11 @@ public class NetworkManager : MonoBehaviour {
 
 	void OnLevelWasLoaded(int index) {
 		if (index == 0) {
-			SpawnGame ();
+			//SpawnGame ();
 		}
 	}
 
-    void OnServerInitialized()
-    {
+    void OnServerInitialized() {
         serverStarted = true;
         Debug.Log("Server Initializied");
     }

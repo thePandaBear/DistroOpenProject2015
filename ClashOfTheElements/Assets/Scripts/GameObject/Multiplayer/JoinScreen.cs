@@ -35,8 +35,15 @@ public class JoinScreen : MonoBehaviour {
 		}
     }
 
-	//request the HostList from MasterServer
-	public void getHostList(){
+    [RPC]
+    void startGame()
+    {
+        Application.LoadLevel("InGame");
+        NetworkManager.Instance.SpawnGame();
+    }
+
+    //request the HostList from MasterServer
+    public void getHostList(){
 		MasterServer.RequestHostList ("ClashOfTheElements");
         hostList = MasterServer.PollHostList();
 		MasterServer.ClearHostList();
@@ -108,8 +115,7 @@ public class JoinScreen : MonoBehaviour {
 
         if(NetworkManager.Instance.joined && NetworkManager.Instance.allowStart)
         {
-            Application.LoadLevel("InGame");
-            NetworkManager.Instance.SpawnGame();
+            //bla
         } else if (NetworkManager.Instance.joined) {
             if(GUI.Button(new Rect(buttonX, buttonY*2, buttonWidth, buttonHeight), "Waiting for players")) {
 

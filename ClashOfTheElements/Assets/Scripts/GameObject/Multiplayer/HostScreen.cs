@@ -7,16 +7,18 @@ public class HostScreen : MonoBehaviour {
 	string username; 
 	string gamename; 
 	InputField usernameField; 
-	InputField gamenameField; 
+	InputField gamenameField;
+    public NetworkView nView;
 
-	public void Start () {
+    public void Start () {
+        nView = GetComponent<NetworkView>();
         /*
 		 usernameField = GameObject.Find("InputUsername").GetComponent<InputField>();
 		 gamenameField = GameObject.Find("InputGameName").GetComponent<InputField>();
 		 usernameField.onEndEdit.AddListener (setUsername);
 		 gamenameField.onEndEdit.AddListener (setGameName);
          */
-	}
+    }
 
 	private void setUsername (string arg){
 		 username = arg;
@@ -69,11 +71,14 @@ public class HostScreen : MonoBehaviour {
         gamename = "gamename";
         gamename = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), gamename, textFont);
 
-        if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == 3) {
+        if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == 1) {
             if (GUI.Button(new Rect(buttonX, buttonY * 2, buttonWidth, buttonHeight), "start Game", buttonFont))
             {
+                
                 NetworkManager.Instance.allowStart = true;
+                nView.RPC("startGame", RPCMode.Others);
                 Application.LoadLevel("InGame");
+
                 NetworkManager.Instance.SpawnGame();
             }
         } else if (NetworkManager.Instance.serverStarted) {
