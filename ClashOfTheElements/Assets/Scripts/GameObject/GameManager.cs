@@ -276,8 +276,8 @@ public class GameManager : MonoBehaviour {
 	}
 
     public Boolean payForTower() {
-            nView.RPC("payForTowerRemote", RPCMode.OthersBuffered);
         if (goldAvailable>=towerCost) {
+            nView.RPC("payForTowerRemote", RPCMode.OthersBuffered);
             goldAvailable -= towerCost;
             return true;
         } else {
@@ -287,6 +287,7 @@ public class GameManager : MonoBehaviour {
 
     public Boolean payForRange() {
         if(goldAvailable >= rangeAddCost) {
+            nView.RPC("payForRangeRemote", RPCMode.OthersBuffered);
             goldAvailable -= rangeAddCost;
             rangeAddCost = rangeAddCost * 2;
             rangeAdd++;
@@ -294,6 +295,14 @@ public class GameManager : MonoBehaviour {
         } else {
             return false;
         }
+    }
+
+    [RPC]
+    void payForRangeRemote()
+    {
+        goldAvailable -= rangeAddCost;
+        rangeAddCost = rangeAddCost * 2;
+        rangeAdd++;
     }
 
     [RPC]
