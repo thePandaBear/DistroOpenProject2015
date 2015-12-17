@@ -46,8 +46,8 @@ public class NetworkManager : MonoBehaviour {
     }
 
 	void OnLevelWasLoaded(int index) {
-		if (index == 0) {
-			//SpawnGame ();
+		if (index == 1) {
+			SpawnGame ();
 		}
 	}
 
