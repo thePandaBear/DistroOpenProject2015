@@ -76,6 +76,7 @@ public class JoinScreen : MonoBehaviour {
         GUIStyle serverFont = new GUIStyle("label");
         serverFont.fontSize = width / 50;
 
+
         // create background texture
         var texture = new Texture2D(2, 2, TextureFormat.ARGB32, false);
 

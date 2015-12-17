@@ -9,9 +9,14 @@ public class HostScreen : MonoBehaviour {
 	InputField usernameField; 
 	InputField gamenameField;
     public NetworkView nView;
-
+    public int nr;
     public void Start () {
         nView = GetComponent<NetworkView>();
+        nr = PlayerPrefs.GetInt("nr");
+        if(nr <= 0)
+        {
+            nr = 0;
+        }
         /*
 		 usernameField = GameObject.Find("InputUsername").GetComponent<InputField>();
 		 gamenameField = GameObject.Find("InputGameName").GetComponent<InputField>();
@@ -71,7 +76,7 @@ public class HostScreen : MonoBehaviour {
         gamename = "gamename";
         gamename = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), gamename, textFont);
 
-        if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == 1) {
+        if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == nr - 1) {
             if (GUI.Button(new Rect(buttonX, buttonY * 2, buttonWidth, buttonHeight), "start Game", buttonFont))
             {
                 NetworkManager.Instance.allowStart = true;
@@ -88,7 +93,7 @@ public class HostScreen : MonoBehaviour {
                 if (gamename != null && gamename.Length > 0) {
 
                     PlayerPrefs.SetString("gamename", gamename);
-                    NetworkManager.Instance.StartHost(gamename);
+                    NetworkManager.Instance.StartHost(gamename, nr);
 
                 }
                 else {

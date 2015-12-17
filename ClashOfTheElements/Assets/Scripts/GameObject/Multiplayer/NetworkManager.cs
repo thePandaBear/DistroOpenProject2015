@@ -29,9 +29,9 @@ public class NetworkManager : MonoBehaviour {
 	void Update () {
 	}
 
-	public void StartHost(string gamename){
+	public void StartHost(string gamename, int nr){
 		int listenport = 25000;
-		NetworkConnectionError error = Network.InitializeServer (4, listenport, true);
+		NetworkConnectionError error = Network.InitializeServer (nr, listenport, true);
 
 		//loop while no connection could be established 
 		while(error != NetworkConnectionError.NoError){
