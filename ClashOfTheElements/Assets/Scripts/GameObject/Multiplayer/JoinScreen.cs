@@ -114,7 +114,6 @@ public class JoinScreen : MonoBehaviour {
             {
                 if(GUI.Button(new Rect(10, 10 + (int)(width / 50 * 1.5) * i, buttonWidth / 5 * 4 - 20, 100), hostList[i].gameType, serverFont)) {
                     NetworkManager.Instance.JoinServer(hostList[i]);
-                    Application.LoadLevel("InGame");
                 }
             }
             if(hostList.Length < 1) {

@@ -10,6 +10,8 @@ public class NetworkManager : MonoBehaviour {
     private HostData[] hostList;
 	public GameObject gameManPrefab; 
 
+	//TODO: display some message if server couldnt be created or server couldnt be joined 
+
     void Awake(){
 		Instance = this; 
 		DontDestroyOnLoad (transform.gameObject);
@@ -47,6 +49,7 @@ public class NetworkManager : MonoBehaviour {
 
     void OnServerInitialized()
     {
+		Application.LoadLevel("InGame");
         Debug.Log("Server Initializied");
     }
 
@@ -70,6 +73,7 @@ public class NetworkManager : MonoBehaviour {
 
     void OnConnectedToServer()
     {
+		Application.LoadLevel("InGame");
         Debug.Log("Server Joined");
     }
 
