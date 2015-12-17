@@ -30,8 +30,8 @@ public class HostScreen : MonoBehaviour {
 
 	void Update () {
 	}
-	
-	void OnGUI(){
+
+    void OnGUI(){
 
 		// previously w=1200, h=900
 		int width = Screen.width;
@@ -71,15 +71,11 @@ public class HostScreen : MonoBehaviour {
         gamename = "gamename";
         gamename = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), gamename, textFont);
 
-        if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == 1) {
+        if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == 0) {
             if (GUI.Button(new Rect(buttonX, buttonY * 2, buttonWidth, buttonHeight), "start Game", buttonFont))
             {
-                
                 NetworkManager.Instance.allowStart = true;
-                nView.RPC("startGame", RPCMode.Others);
                 Application.LoadLevel("InGame");
-
-                NetworkManager.Instance.SpawnGame();
             }
         } else if (NetworkManager.Instance.serverStarted) {
             if (GUI.Button(new Rect(buttonX, buttonY * 2, buttonWidth, buttonHeight), "waiting for players: " + (NetworkManager.Instance.playersConnected + 1).ToString(), buttonFont)) {

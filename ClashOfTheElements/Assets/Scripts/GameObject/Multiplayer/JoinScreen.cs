@@ -18,9 +18,9 @@ public class JoinScreen : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-		//the server List is never updated?
+        //the server List is never updated?
         serverList = new List<string>();
-		serverList.Add ("2");
+        
     }
 
     void Update() {
@@ -33,14 +33,19 @@ public class JoinScreen : MonoBehaviour {
 			}
 			MasterServer.ClearHostList();
 		}
+
+        if (GameObject.Find("Plane(Clone)")!= null)
+        {
+            Debug.Log("lol");
+            Application.LoadLevel("InGame");
+        }
     }
 
     [RPC]
     void startGame()
     {
-		Debug.Log ("ccc");
+        Debug.Log("started game");
         Application.LoadLevel("InGame");
-        NetworkManager.Instance.SpawnGame();
     }
 
     //request the HostList from MasterServer
