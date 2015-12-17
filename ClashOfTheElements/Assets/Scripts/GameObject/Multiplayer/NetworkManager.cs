@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using System.Threading;
 
 
 public class NetworkManager : MonoBehaviour {
@@ -79,9 +80,15 @@ public class NetworkManager : MonoBehaviour {
         Debug.Log("Server Joined");
     }
 
-	public void SpawnGame(){
-		Network.Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity,0);
-		Network.Instantiate (planePrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
+	/*public void SpawnGame(){
+		Network.Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity,0);*/
+	public void SpawnGame() {
+        Network.Instantiate(planePrefab, new Vector3(0, 0, 1), Quaternion.identity, 0);
+        Thread.Sleep(1000);
+        if(Network.isServer)
+		    Network.Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
+			Network.Instantiate (planePrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
+        
 	}
 
 	void OnPlayerConnected(NetworkPlayer player) {
