@@ -37,6 +37,9 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+--- !u!127 &3
+LevelGameManager:
+  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -65,7 +68,6 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
-    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
@@ -151,6 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2accfc566e7491242843eeff2f08c879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playersConnected: 0
+  serverStarted: 0
+  allowStart: 0
+  joined: 0
   gameManPrefab: {fileID: 167470, guid: 70c60cd82885a1c479e17306a6ec8c29, type: 2}
   planePrefab: {fileID: 145878, guid: 6d80c2ec7791eb746ae4f1cc12ddffd8, type: 2}
 --- !u!4 &1272039365
@@ -233,7 +239,6 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10

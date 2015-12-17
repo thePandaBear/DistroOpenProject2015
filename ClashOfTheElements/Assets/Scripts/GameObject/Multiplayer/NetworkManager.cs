@@ -80,7 +80,7 @@ public class NetworkManager : MonoBehaviour {
     }
 
 	public void SpawnGame(){
-		Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity);
+		Network.Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity,0);
 		Network.Instantiate (planePrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
 	}
 

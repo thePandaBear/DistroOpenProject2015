@@ -71,7 +71,7 @@ public class HostScreen : MonoBehaviour {
         gamename = "gamename";
         gamename = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), gamename, textFont);
 
-        if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == 0) {
+        if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == 1) {
             if (GUI.Button(new Rect(buttonX, buttonY * 2, buttonWidth, buttonHeight), "start Game", buttonFont))
             {
                 NetworkManager.Instance.allowStart = true;
