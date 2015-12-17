@@ -50,7 +50,6 @@ public class NetworkManager : MonoBehaviour {
 
     void OnServerInitialized()
     {
-		Application.LoadLevel("InGame");
         Debug.Log("Server Initializied");
     }
 
@@ -74,7 +73,6 @@ public class NetworkManager : MonoBehaviour {
 
     void OnConnectedToServer()
     {
-		Application.LoadLevel("InGame");
         Debug.Log("Server Joined");
     }
 

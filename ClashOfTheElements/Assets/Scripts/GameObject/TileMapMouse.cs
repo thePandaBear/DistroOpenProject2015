@@ -16,6 +16,7 @@ public class TileMapMouse : MonoBehaviour {
     // tower prefeb
     public Tower towerPrefab;
 
+
     //offset to hit center of tile
     private Vector2 tileCenterOffset = new Vector2(0.5f, 0.5f);
 
@@ -84,8 +85,7 @@ public class TileMapMouse : MonoBehaviour {
                     mapData.setTowerBool((int)currentTileCoord.x, (int)currentTileCoord.y, true);
                     //build Tower
 					Tower t = Network.Instantiate(towerPrefab, currentTileCoord + tileCenterOffset, Quaternion.identity, 0) as Tower;
-                  
-                }
+				}
             }
         }
     }

@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour {
 	
 	/** parameters for the gameplay **/
 	// currently available gold
-	public int goldAvailable { get; protected set; }
 
+	public int goldAvailable; 
     // number of lives available to the player
 	public int nOfLives = 10;
 
@@ -100,7 +100,9 @@ public class GameManager : MonoBehaviour {
         // add event handler to monster
         Monster.OnMonsterDeath += collectGold;
     }
-	
+	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info){
+			
+	}
 	// update the game.
 	void Update () {
 
