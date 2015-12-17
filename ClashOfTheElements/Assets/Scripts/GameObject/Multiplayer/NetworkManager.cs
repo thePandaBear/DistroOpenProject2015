@@ -7,6 +7,10 @@ using System.Collections.Generic;
 public class NetworkManager : MonoBehaviour {
 
 	public static NetworkManager Instance;
+    public int playersConnected = 0;
+    public bool serverStarted = false;
+    public bool allowStart = false;
+    public bool joined = false;
     private HostData[] hostList;
 	public GameObject gameManPrefab; 
 	public GameObject planePrefab; 
@@ -33,9 +37,8 @@ public class NetworkManager : MonoBehaviour {
 			listenport =  UnityEngine.Random.Range (25000, 26000);
 			error= Network.InitializeServer (4, listenport, true);
 		}
-	
 		MasterServer.RegisterHost ("ClashOfTheElements", gamename);
-		Debug.Log ("server:  " + gamename); 
+		Debug.Log ("server:  " + gamename);
 	}
 
     public void SearchServers() {
@@ -50,7 +53,7 @@ public class NetworkManager : MonoBehaviour {
 
     void OnServerInitialized()
     {
-		Application.LoadLevel("InGame");
+        serverStarted = true;
         Debug.Log("Server Initializied");
     }
 
@@ -74,17 +77,17 @@ public class NetworkManager : MonoBehaviour {
 
     void OnConnectedToServer()
     {
-		Application.LoadLevel("InGame");
+		//Application.LoadLevel("InGame");
         Debug.Log("Server Joined");
     }
 
-	private void SpawnGame(){
+	public void SpawnGame(){
 		Instantiate (gameManPrefab, new Vector3 (0, 0, 1), Quaternion.identity);
 		Network.Instantiate (planePrefab, new Vector3 (0, 0, 1), Quaternion.identity, 0);
 	}
 
 	void OnPlayerConnected(NetworkPlayer player) {
-		//TODO display this in game
-		Debug.Log("A Player connected");
+        playersConnected++;
+        Debug.Log("A Player connected");
 	}
 }

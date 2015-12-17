@@ -69,19 +69,36 @@ public class HostScreen : MonoBehaviour {
         gamename = "gamename";
         gamename = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), gamename, textFont);
 
-		if(GUI.Button(new Rect(buttonX,buttonY*2,buttonWidth,buttonHeight), "start LAN Server", buttonFont)){
-			//check if gamename is set, required to open a server
-				if(gamename != null && gamename.Length > 0) {
-					
-                    PlayerPrefs.SetString("gamename", gamename);
-					NetworkManager.Instance.StartHost(gamename);
+        if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == 3) {
+            if (GUI.Button(new Rect(buttonX, buttonY * 2, buttonWidth, buttonHeight), "start Game", buttonFont))
+            {
+                NetworkManager.Instance.allowStart = true;
+                Application.LoadLevel("InGame");
+                NetworkManager.Instance.SpawnGame();
+            }
+        } else if (NetworkManager.Instance.serverStarted) {
+            if (GUI.Button(new Rect(buttonX, buttonY * 2, buttonWidth, buttonHeight), "waiting for players: " + (NetworkManager.Instance.playersConnected + 1).ToString(), buttonFont)) {
+                // do nothing
+            }
+        } else {
+            if (GUI.Button(new Rect(buttonX, buttonY * 2, buttonWidth, buttonHeight), "start LAN Server", buttonFont))
+            {
+                //check if gamename is set, required to open a server
+                if (gamename != null && gamename.Length > 0) {
 
-				}else{
-					//TODO display some message
-					// !!probably not needed anymore.
-					Debug.Log("input missing: gamename");
-				}
-		}
+                    PlayerPrefs.SetString("gamename", gamename);
+                    NetworkManager.Instance.StartHost(gamename);
+
+                }
+                else {
+                    //TODO display some message
+                    // !!probably not needed anymore.
+                    Debug.Log("input missing: gamename");
+                }
+            }
+        }
+
+		
 		if(GUI.Button(new Rect(buttonX,buttonY*3,buttonWidth,buttonHeight), "Back", buttonFont)){
 			Application.LoadLevel("LoginMenu");
 		}
