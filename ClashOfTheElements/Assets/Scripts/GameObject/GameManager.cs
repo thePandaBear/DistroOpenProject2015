@@ -361,9 +361,9 @@ public class GameManager : MonoBehaviour {
         buttonFontSmall.fontSize = width / 60;
 
         // nr of lives left
-        GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "Lives: " + nOfLives.ToString(), labelFont);
+        GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "    " + nOfLives.ToString(), labelFont);
         // amount of gold left
-        GUI.Label(new Rect(10, 10 + (int)(width / 50 * 1.5), buttonWidth / 2, buttonHeight), "Gold: " + goldAvailable.ToString(), labelFont);
+        GUI.Label(new Rect(10, 10 + (int)(width / 50 * 1.5), buttonWidth / 2, buttonHeight), "    " + goldAvailable.ToString(), labelFont);
 
         // Tower Build Cost
         GUI.Label(new Rect(10, 10 + (int)(width/ 50 * 3), buttonWidth, buttonHeight), "Tower Cost: " + towerCost.ToString(), labelFont);
