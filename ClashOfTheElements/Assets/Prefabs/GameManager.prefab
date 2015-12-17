@@ -56,6 +56,7 @@ MonoBehaviour:
   castlePrefab: {fileID: 152144, guid: 364e968739be07b41b56ce5bf1dfa0b2, type: 2}
   waypoints: []
   waypointsParent: {fileID: 0}
+  goldAvailable: 0
   nOfLives: 20
   towerCost: 5
   monsterReward: 1

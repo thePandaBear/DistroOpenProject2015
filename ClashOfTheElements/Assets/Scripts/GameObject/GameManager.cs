@@ -105,9 +105,7 @@ public class GameManager : MonoBehaviour {
         // add event handler to monster
         Monster.OnMonsterDeath += collectGold;
     }
-	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info){
-			
-	}
+
 	// update the game.
 	void Update () {
 
@@ -143,7 +141,16 @@ public class GameManager : MonoBehaviour {
 			break;
 		}
 	}
-	
+	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info) {
+		int gold = 0;
+		if (stream.isWriting) {
+			gold = goldAvailable;
+			stream.Serialize(ref gold);
+		} else {
+			stream.Serialize(ref gold);
+			gold = goldAvailable;
+		}
+	}
 	protected void initLevelFromXml() {
 		
 		// create gameobject for each waypoint
