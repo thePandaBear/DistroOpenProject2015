@@ -106,23 +106,37 @@ public class JoinScreen : MonoBehaviour {
         // get scroll view size
         int scrollViewSize = 60 + (int)(width / 50 * 1.5) * (serverList.Count - 1);
 
-        // begin the scroll view for the server listing
-        scrollPosition = GUI.BeginScrollView(new Rect(buttonX, buttonY*2, buttonWidth, buttonHeight*5), scrollPosition, new Rect(0, 0, buttonWidth-20, scrollViewSize));
+        if(NetworkManager.Instance.joined && NetworkManager.Instance.allowStart)
+        {
+            Application.LoadLevel("InGame");
+            NetworkManager.Instance.SpawnGame();
+        } else if (NetworkManager.Instance.joined) {
+            if(GUI.Button(new Rect(buttonX, buttonY*2, buttonWidth, buttonHeight), "Waiting for players")) {
 
-        if(hostList != null) {
-            for (int i = 0; i < hostList.Length; i++)
+            }
+        } else {
+            // begin the scroll view for the server listing
+            scrollPosition = GUI.BeginScrollView(new Rect(buttonX, buttonY * 2, buttonWidth, buttonHeight * 5), scrollPosition, new Rect(0, 0, buttonWidth - 20, scrollViewSize));
+
+            if (hostList != null)
             {
-                if(GUI.Button(new Rect(10, 10 + (int)(width / 50 * 1.5) * i, buttonWidth / 5 * 4 - 20, 100), hostList[i].gameType, serverFont)) {
-                    NetworkManager.Instance.JoinServer(hostList[i]);
+                for (int i = 0; i < hostList.Length; i++)
+                {
+                    if (GUI.Button(new Rect(10, 10 + (int)(width / 50 * 1.5) * i, buttonWidth / 5 * 4 - 20, 100), hostList[i].gameType, serverFont))
+                    {
+                        NetworkManager.Instance.JoinServer(hostList[i]);
+                    }
+                }
+                if (hostList.Length < 1)
+                {
+                    GUI.Label(new Rect(10, 10, buttonWidth / 5 * 4 - 20, 100), "No servers found", serverFont);
                 }
             }
-            if(hostList.Length < 1) {
-                GUI.Label(new Rect(10, 10, buttonWidth / 5 * 4 - 20, 100), "No servers found", serverFont);
-            }
-        }
 
-        // end the scroll view
-        GUI.EndScrollView();
+            // end the scroll view
+            GUI.EndScrollView();
+        }
+       
 
         // add back button to screen
         if (GUI.Button(new Rect(buttonX, (int)(buttonY *5) , buttonWidth, buttonHeight), "Back", buttonFont)) {

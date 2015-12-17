@@ -37,9 +37,14 @@ public class GameManager : MonoBehaviour {
 	
 	// xml file which stores level data
 	public XMLParser levelData;
-	
-	// create gameobjects for previously fabricatet monster/castles
-	public GameObject monsterPrefab;
+
+    // create gameobjects for previously fabricatet monster/castles
+    public int NrOfDiffMonster;
+    public GameObject monsterPrefab1;
+    public GameObject monsterPrefab2;
+    public GameObject monsterPrefab3;
+    public GameObject monsterPrefab4;
+
 	public GameObject castlePrefab;
 	
 	// list for waypoints
@@ -194,6 +199,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	protected IEnumerator newRound() {
+
 		if (Network.isServer) {
 			// player has 5 seconds to do something.
 			yield return new WaitForSeconds (5f);
@@ -205,15 +211,34 @@ public class GameManager : MonoBehaviour {
 			}
 
 			roundNumber++;
-
-			// create 10 monsters
-			for (int n = 0; n < 10 && gameState != GameState.Lost; n++) {
+            // change monster 
+            GameObject currentMonster;
+            switch (roundNumber % NrOfDiffMonster)
+            {
+                case 0:
+                    currentMonster = monsterPrefab1;
+                    break;
+                case 1:
+                    currentMonster = monsterPrefab2;
+                    break;
+                case 2:
+                    currentMonster = monsterPrefab3;
+                    break;
+                case 3:
+                    currentMonster = monsterPrefab4;
+                    break;
+                default:
+                    currentMonster = monsterPrefab1;
+                    break;
+            }
+            // create 10 monsters
+            for (int n = 0; n < 10 && gameState != GameState.Lost; n++) {
 
 				// create a new monster.
 				if (waypoints == null) {
 					Debug.Log ("xxxx");
 				}
-				GameObject monster = Network.Instantiate (monsterPrefab, waypoints [0].transform.position, Quaternion.identity, 0) as GameObject;
+				GameObject monster = Network.Instantiate (currentMonster, waypoints [0].transform.position, Quaternion.identity, 0) as GameObject;
 				Monster monsterComponent = monster.GetComponent<Monster> ();
 
 				// set health of new monster.
@@ -291,6 +316,7 @@ public class GameManager : MonoBehaviour {
 
     // method for monsterDeath event
     protected void collectGold() {
+        Debug.Log("infinityyyyyyyyyyyy");
         goldAvailable += monsterReward;
     }
 
