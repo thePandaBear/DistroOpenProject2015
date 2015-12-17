@@ -101,7 +101,7 @@ public class JoinScreen : MonoBehaviour {
         if (GUI.Button(new Rect(buttonX + buttonWidth/2 + 6, buttonY, buttonWidth / 2-6, buttonHeight), "Search", buttonFont)) {
            NetworkManager.Instance.SearchServers();
         	 hostList = NetworkManager.Instance.getServerList();
-			getHostList();
+			//getHostList();
         }
 
         // get scroll view size
