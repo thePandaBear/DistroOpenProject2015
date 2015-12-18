@@ -21,7 +21,9 @@ public class LoginScreen : MonoBehaviour {
         }
 	}
 
-	void OnGUI(){
+    public Texture2D symbol;
+
+    void OnGUI(){
 
 		// previously w=1200, h=900
 		int width = Screen.width;
@@ -45,6 +47,10 @@ public class LoginScreen : MonoBehaviour {
 
         GUIStyle textFont = new GUIStyle(GUI.skin.textField);
         textFont.fontSize = width / 30;
+
+        //symbol
+        GUI.DrawTexture(new Rect(width * 0.2f - symbol.width / 2, height / 2 - symbol.height / 2, symbol.width, symbol.height), symbol);
+        GUI.DrawTexture(new Rect(width * 0.8f - symbol.width / 2, height / 2 - symbol.height / 2, symbol.width, symbol.height), symbol);
 
         // create gui box
         GUI.Box (new Rect (0, 0, width, height), "");

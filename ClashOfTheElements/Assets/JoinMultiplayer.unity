@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPosition: {x: 0, y: 0}
+  symbol: {fileID: 2800000, guid: 4afa2c4ad2dbc6541b889440230ebe0e, type: 3}
 --- !u!4 &563915983
 Transform:
   m_ObjectHideFlags: 0

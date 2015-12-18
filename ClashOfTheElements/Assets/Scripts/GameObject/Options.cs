@@ -18,8 +18,10 @@ public class Options : MonoBehaviour {
 		}
 		PlayerPrefs.SetString("username", username);
 	}
-	
-	void OnGUI(){
+
+    public Texture2D symbol;
+
+    void OnGUI(){
 		
 		// previously w=1200, h=900
 		int width = Screen.width;
@@ -32,9 +34,13 @@ public class Options : MonoBehaviour {
 		// get standard button height and width
 		int buttonX = width / 2 - buttonWidth / 2;
 		int buttonY = height / 6;
-		
-		// create custom style for bigger font
-		GUIStyle buttonFont = new GUIStyle("button");
+
+        //symbol
+        GUI.DrawTexture(new Rect(width * 0.2f - symbol.width / 2, height / 2 - symbol.height / 2, symbol.width, symbol.height), symbol);
+        GUI.DrawTexture(new Rect(width * 0.8f - symbol.width / 2, height / 2 - symbol.height / 2, symbol.width, symbol.height), symbol);
+
+        // create custom style for bigger font
+        GUIStyle buttonFont = new GUIStyle("button");
 		buttonFont.fontSize = width / 30;
 
 		// create custom style for label font

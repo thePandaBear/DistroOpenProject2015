@@ -36,6 +36,8 @@ public class HostScreen : MonoBehaviour {
 	void Update () {
 	}
 
+    public Texture2D symbol;
+
     void OnGUI(){
 
 		// previously w=1200, h=900
@@ -49,6 +51,10 @@ public class HostScreen : MonoBehaviour {
 		// get standard button height and width
 		int buttonX = width / 2 - buttonWidth / 2;
 		int buttonY = height / 6;
+
+        //symbol
+        GUI.DrawTexture(new Rect(width * 0.2f - symbol.width / 2, height / 2 - symbol.height / 2, symbol.width, symbol.height), symbol);
+        GUI.DrawTexture(new Rect(width * 0.8f - symbol.width / 2, height / 2 - symbol.height / 2, symbol.width, symbol.height), symbol);
 
         // create custom style for bigger font
         GUIStyle buttonFont = new GUIStyle("button");
