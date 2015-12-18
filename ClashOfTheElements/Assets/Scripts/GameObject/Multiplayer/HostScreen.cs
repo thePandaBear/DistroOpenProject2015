@@ -13,7 +13,8 @@ public class HostScreen : MonoBehaviour {
     public void Start () {
         nView = GetComponent<NetworkView>();
         nr = PlayerPrefs.GetInt("nr");
-        if(nr <= 0)
+        gamename = "gamename";
+        if (nr <= 0)
         {
             nr = 0;
         }
@@ -79,7 +80,6 @@ public class HostScreen : MonoBehaviour {
 			username = "Spongebob";
 			PlayerPrefs.SetString("username", username);
 		}
-        gamename = "gamename";
         gamename = GUI.TextField(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), gamename, textFont);
 
         if (NetworkManager.Instance.serverStarted && NetworkManager.Instance.playersConnected == nr - 1) {
