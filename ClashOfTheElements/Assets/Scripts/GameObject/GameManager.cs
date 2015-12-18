@@ -373,15 +373,15 @@ public class GameManager : MonoBehaviour {
         buttonFontSmall.fontSize = width / 60;
 
         GUI.DrawTexture(new Rect(10, 10, buttonHeight * 0.6f, buttonHeight * 0.6f), heart);
-        GUI.DrawTexture(new Rect(10, 10 + (int)(width / 50 * 1.5), buttonHeight * 0.6f, buttonHeight * 0.6f), coin);
+        GUI.DrawTexture(new Rect(10, 10 + (int)(width / 50 * 2), buttonHeight * 0.6f, buttonHeight * 0.6f), coin);
 
         // nr of lives left
-        GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "    " + nOfLives.ToString(), labelFont);
+        GUI.Label(new Rect(10, 10, buttonWidth/2, buttonHeight), "       " + nOfLives.ToString(), labelFont);
         // amount of gold left
-        GUI.Label(new Rect(10, 10 + (int)(width / 50 * 1.5), buttonWidth / 2, buttonHeight), "    " + goldAvailable.ToString(), labelFont);
+        GUI.Label(new Rect(10, 10 + (int)(width / 50 * 2), buttonWidth / 2, buttonHeight), "       " + goldAvailable.ToString(), labelFont);
 
         // Tower Build Cost
-        GUI.Label(new Rect(10, 10 + (int)(width/ 50 * 3), buttonWidth, buttonHeight), "Tower Cost: " + towerCost.ToString(), labelFont);
+        GUI.Label(new Rect(10, 10 + (int)(width/ 50 * 4), buttonWidth, buttonHeight), "Tower Cost:    " + towerCost.ToString(), labelFont);
 
         // upgrade tower attack button
         if(GUI.Button(new Rect(width - 10 - buttonWidth / 2, 10, buttonWidth / 2, buttonHeight), "Upgrade Range: " + rangeAddCost.ToString(), buttonFontSmall)) {
@@ -389,7 +389,7 @@ public class GameManager : MonoBehaviour {
             payForRange();
         }
 
-        if(GUI.Button(new Rect(width - 10 - buttonWidth/2, 10+ (int)(width/50*3), buttonWidth/2, buttonHeight), "Upgrade Attack: " + attackAddCost.ToString(), buttonFontSmall)) {
+        if(GUI.Button(new Rect(width - 10 - buttonWidth/2, 10+ (int)(width/50*4), buttonWidth/2, buttonHeight), "Upgrade Attack: " + attackAddCost.ToString(), buttonFontSmall)) {
             // increase attack if there is enough gold
             payForAttack();
         }
